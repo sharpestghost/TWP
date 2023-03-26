@@ -9,8 +9,6 @@ import ru.tinkoff.edu.dto.request.RemoveLinkRequest;
 import ru.tinkoff.edu.dto.response.LinkResponse;
 import ru.tinkoff.edu.dto.response.ListLinksResponse;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(name = "/links")
 public class LinksController {

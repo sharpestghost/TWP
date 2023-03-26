@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.tinkoff.edu.exception.DataNotFoundException;
 import ru.tinkoff.edu.exception.InvalidRequestException;
 import ru.tinkoff.edu.dto.response.ApiErrorResponse;
 
@@ -27,9 +28,9 @@ public class ErrorHandlingController {
     }
 
     //Error: 404
-    @ExceptionHandler(InvalidRequestException.class)
+    @ExceptionHandler(DataNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ApiErrorResponse linkNotFound(InvalidRequestException e) {
+    public ApiErrorResponse linkNotFound(DataNotFoundException e) {
         return new ApiErrorResponse(LINK_NOT_FOUND_DESCRIPTION, String.valueOf(NOT_FOUND),
                 e.getClass().getName(), e.getMessage(),
                 Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString).toArray(String[]::new));
