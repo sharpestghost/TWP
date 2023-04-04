@@ -3,7 +3,7 @@ package ru.tinkoff.edu.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import ru.tinkoff.edu.dto.ApiErrorResponse;
+import ru.tinkoff.edu.dto.response.ApiErrorResponse;
 import ru.tinkoff.edu.exception.InvalidRequestException;
 
 import java.util.Arrays;
