@@ -5,8 +5,9 @@ import com.pengrad.telegrambot.request.SendMessage;
 
 public class StartCommand implements CommandInfo {
 
-    private static String START_MESSAGE = "Enter your username";
-    private static String START_DESCRIPTION = "User registration for link tracking";
+    private static final String START_MESSAGE = "Enter your username";
+    private static final String START_DESCRIPTION = "User registration for link tracking";
+
     @Override
     public String command() {
         return "/start";

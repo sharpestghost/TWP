@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SetMyCommands;
+import org.springframework.beans.factory.annotation.Value;
 import ru.tinkoff.edu.bot.commands.CommandInfo;
 
 import java.util.List;
@@ -15,10 +16,9 @@ public class Bot {
     private final List<CommandInfo> supportedCommands;
     private static final String INVALID_COMMAND = "Invalid command option.";
 
-
-    public Bot(String token, List<CommandInfo> supportedCommands) {
-        this.telegramBot = new TelegramBot(token);
+    public Bot(@Value("${app.accessToken}") String accessToken, List<CommandInfo> supportedCommands) {
         this.supportedCommands = supportedCommands;
+        this.telegramBot = new TelegramBot(accessToken);
     }
 
 

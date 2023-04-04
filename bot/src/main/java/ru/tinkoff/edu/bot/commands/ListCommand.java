@@ -6,9 +6,10 @@ import ru.tinkoff.edu.dto.response.LinkResponse;
 import ru.tinkoff.edu.dto.response.ListLinksResponse;
 
 public class ListCommand implements CommandInfo {
-    private static String LIST_MESSAGE = "Current list of tracking links:";
-    private static String LIST_DESCRIPTION = "Provide a list of tracking lists.";
-    private static String SPECIAL_MESSAGE = "Tracking list is empty.";
+    private static final String LIST_MESSAGE = "Current list of tracking links:";
+    private static final String LIST_DESCRIPTION = "Provide a list of tracking lists.";
+    private static final String SPECIAL_MESSAGE = "Tracking list is empty.";
+
     @Override
     public String command() {
         return "/list";
@@ -25,8 +26,7 @@ public class ListCommand implements CommandInfo {
         ListLinksResponse response = new ListLinksResponse(null, 0);
         try {
             //get tracking links
-        }
-        catch (RuntimeException ex) {
+        } catch (RuntimeException ex) {
             return new SendMessage(chatId, STANDARD_ERROR_MSG);
         }
         StringBuilder linksStringBuilder = new StringBuilder(response.size() != 0 ?

@@ -6,9 +6,10 @@ import com.pengrad.telegrambot.request.SendMessage;
 
 public class TrackCommand implements CommandInfo {
 
-    private static String TRACK_MESSAGE = "Send the link as a reply to add this to tracking list";
-    private static String TRACK_DESCRIPTION = "Add links to track";
-    private static String replyMessage = "Link was successfully add to tracking list";
+    private static final String TRACK_MESSAGE = "Send the link as a reply to add this to tracking list";
+    private static final String TRACK_DESCRIPTION = "Add links to track";
+    private String replyMessage = "Link was successfully add to tracking list";
+
     @Override
     public String command() {
         return "/track";
@@ -34,7 +35,7 @@ public class TrackCommand implements CommandInfo {
         //get link here
         try {
             //add link to list here
-        }  catch (RuntimeException ex) {
+        } catch (RuntimeException ex) {
             replyMessage = STANDARD_ERROR_MSG;
         }
 

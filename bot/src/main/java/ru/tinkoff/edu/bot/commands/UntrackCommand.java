@@ -8,7 +8,8 @@ public class UntrackCommand implements CommandInfo {
     //Send the link as a reply to remove this from the tracking list
     private static final String UNTRACK_MESSAGE = "Send the link as a reply to add this to tracking list";
     private static final String UNTRACK_DESCRIPTION = "Remove links from track";
-    private static String replyMessage = "Link was successfully removed from tracking list";
+    private String replyMessage = "Link was successfully removed from tracking list";
+
     @Override
     public String command() {
         return "/untrack";
@@ -34,7 +35,7 @@ public class UntrackCommand implements CommandInfo {
         //get link here
         try {
             //add link to list here
-        }  catch (RuntimeException ex) {
+        } catch (RuntimeException ex) {
             replyMessage = STANDARD_ERROR_MSG;
         }
 

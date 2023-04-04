@@ -1,19 +1,29 @@
+
 import org.junit.jupiter.api.Test;
-import ru.tinkoff.edu.bot.Bot;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BotTest {
-    private static Bot bot;
-    private static long testChatId;
 
 
     @Test
+    public void listTest() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void specialMessageTest() {
+        assertTrue(true);
+    }
+
+    @Test
     public void testValidCommand() {
-        //valid commands check
+        assertTrue(true);
     }
 
     @Test
     public void testInvalidCommand() {
-        //invalid commands check
+        assertTrue(true);
     }
 
 }

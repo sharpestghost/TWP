@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.request.SendMessage;
 
 public interface CommandInfo {
     String STANDARD_ERROR_MSG = "Something went wrong, please try again";
+
     String command();
 
     String description();
