@@ -1,11 +1,13 @@
 package ru.tinkoff.edu;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 public abstract class Parser {
     Parser nextParser;
 
-    Parser (Parser nextParser) {
+    Parser(Parser nextParser) {
         this.nextParser = nextParser;
     }
 
@@ -20,5 +22,14 @@ public abstract class Parser {
             return nextParser.parse(url);
         }
         return null;
+    }
+
+    public static boolean isValid(String link) {
+        try {
+            new URL(link).toURI();
+        } catch (MalformedURLException | URISyntaxException e) {
+            return false;
+        }
+        return true;
     }
 }
