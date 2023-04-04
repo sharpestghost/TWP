@@ -13,7 +13,7 @@ import java.util.List;
 public class Bot {
     public final TelegramBot telegramBot;
     private final List<CommandInfo> supportedCommands;
-    private String INVALID_COMMAND = "Invalid command option.";
+    private static final String INVALID_COMMAND = "Invalid command option.";
 
 
     public Bot(String token, List<CommandInfo> supportedCommands) {
