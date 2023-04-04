@@ -27,11 +27,7 @@ public class Bot {
         for (int i = 0; i < commands.length; i++) {
             commands[i] = supportedCommands.get(i).toApiCommand();
         }
-        try {
-            telegramBot.execute(new SetMyCommands(commands));
-        } catch (RuntimeException e) {
-
-        }
+        telegramBot.execute(new SetMyCommands(commands));
         telegramBot.setUpdatesListener(updates -> {
             for (Update update : updates)
                 telegramBot.execute(processUpdate(update));
