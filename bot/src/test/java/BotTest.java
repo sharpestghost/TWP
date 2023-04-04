@@ -1,28 +1,27 @@
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class BotTest {
+class BotTest {
 
 
     @Test
-    public void listTest() {
+    void listTest() {
         assertTrue(true);
     }
 
     @Test
-    public void specialMessageTest() {
+    void specialMessageTest() {
         assertTrue(true);
     }
 
     @Test
-    public void testValidCommand() {
+    void testValidCommand() {
         assertTrue(true);
     }
 
     @Test
-    public void testInvalidCommand() {
+    void testInvalidCommand() {
         assertTrue(true);
     }
 
