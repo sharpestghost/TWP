@@ -31,7 +31,7 @@ public class LPTest {
                 "https://github.com/secondInvalidLink",
                 "https://stackoverflow.com/question/40480/is-java-pass-by-reference-or-pass-by-value"};
         for (String link: links) {
-            assertTrue(Parser.isValid(link));
+            assertFalse(Parser.isValid(link));
         }
     }
 }
