@@ -15,13 +15,9 @@ public class MigrationsTest extends IntegrationEnviroment {
 
     @Test
     public void checkIfExist() {
-        System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
         String[] validTableNames = new String[]{"chat", "link", "link_chat"};
         String[] invalidTableNames = new String[]{"student", "users", "people", "chats", "links"};
-        String selectQuery = "SELECT table_name\n" +
-                "  FROM information_schema.tables\n" +
-                " WHERE table_schema='public'\n" +
-                "   AND table_type='BASE TABLE'";
+        String selectQuery = "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'";
         Set<String> tableNames = new HashSet<>();
         try (Connection conn = DB_CONTAINER.createConnection("")) {
             ResultSet result = conn.createStatement().executeQuery(selectQuery);
@@ -33,11 +29,9 @@ public class MigrationsTest extends IntegrationEnviroment {
         }
         //checking for tables in database
         for (String name : validTableNames) {
-            System.out.println(name);
             assertTrue(tableNames.contains(name));
         }
         for (String name : invalidTableNames) {
-            System.out.println(name);
             assertFalse(tableNames.contains(name));
         }
     }
