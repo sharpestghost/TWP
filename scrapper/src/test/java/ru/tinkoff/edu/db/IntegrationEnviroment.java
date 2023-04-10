@@ -19,8 +19,8 @@ import java.util.logging.Logger;
 
 
 public abstract class IntegrationEnviroment {
-    private final static Logger LOGGER =  Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static final Path PATH = new File(".").toPath().toAbsolutePath().getParent();
+    static final Logger LOGGER =  Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     static final PostgreSQLContainer<?> DB_CONTAINER;
 
     static {
