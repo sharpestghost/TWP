@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MigrationsTest extends IntegrationEnviroment {
 
     @Test
-    public void checkIfExist() {
+    void checkIfExist() {
         String[] validTableNames = new String[]{"chat", "link", "link_chat"};
         String[] invalidTableNames = new String[]{"student", "users", "people", "chats", "links"};
         String selectQuery = "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'";
