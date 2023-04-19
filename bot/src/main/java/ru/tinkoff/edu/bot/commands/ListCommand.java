@@ -2,8 +2,8 @@ package ru.tinkoff.edu.bot.commands;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import ru.tinkoff.edu.dto.response.LinkResponse;
-import ru.tinkoff.edu.dto.response.ListLinksResponse;
+import ru.tinkoff.edu.scrapperlink.dto.response.LinkResponse;
+import ru.tinkoff.edu.scrapperlink.dto.response.ListLinksResponse;
 
 public class ListCommand implements CommandInfo {
     private static final String LIST_MESSAGE = "Current list of tracking links:";
