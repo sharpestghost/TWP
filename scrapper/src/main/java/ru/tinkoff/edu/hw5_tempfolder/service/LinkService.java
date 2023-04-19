@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface LinkService {
     Link add(long tgChatId) throws InvalidInputDataException;
-
     Link remove(long tgChatId, URI url);
-    List<Link> listAll(long tgChatId);
+    List<Link> listAll();
+    List<Link> listAllByChatId(long tgChatId);
 }
 

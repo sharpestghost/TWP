@@ -28,7 +28,11 @@ public class JdbcLinkService implements LinkService {
     }
 
     @Override
-    public List<Link> listAll(long tgChatId) {
+    public List<Link> listAll() {
+        return null;
+    }
+    @Override
+    public List<Link> listAllByChatId(long tgChatId) {
         return chatimpl.findAllLinks(tgChatId);
     }
 }
