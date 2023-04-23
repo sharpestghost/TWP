@@ -3,22 +3,23 @@ package ru.tinkoff.edu.bot.commands;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import ru.tinkoff.edu.bot.logic.LinkProcessing;
+
+import java.net.URI;
 
 public class TrackCommand implements CommandInfo {
 
-    private static final String TRACK_MESSAGE = "Send the link as a reply to add this to tracking list";
     private static final String TRACK_DESCRIPTION = "Add links to track";
-    private String replyMessage = "Link was successfully add to tracking list";
+    private static final String TRACK_MESSAGE = "Send the link as a reply to add this to tracking list";
+    private static final String TRACK_OK = "Link was successfully add to tracking list";
+    private static final String TRACK_ERRORDUPLICATE = "This link is already on tracking list";
+    private static final String TRACK_ERRORINVALID = "Invalid link error";
 
     @Override
     public String command() {
         return "/track";
     }
 
-    private boolean isReply(Update update) {
-        Message reply = update.message().replyToMessage();
-        return reply != null && reply.text().equals(TRACK_MESSAGE);
-    }
 
     @Override
     public String description() {
@@ -27,18 +28,21 @@ public class TrackCommand implements CommandInfo {
 
     @Override
     public SendMessage handle(Update update) {
-        return isReply(update) ? handleReply(update) : new SendMessage(update.message().chat().id(), TRACK_DESCRIPTION);
+        return supports(update) ? new SendMessage(update.message().chat().id(), TRACK_MESSAGE)
+                : handleReply(update);
     }
 
     private SendMessage handleReply(Update update) {
-        Long chatId = update.message().chat().id();
-        //get link here
+        Message msg = update.message();
+        Long chatId = msg.chat().id();
         try {
-            //add link to list here
+            URI dsd = LinkProcessing.validate(msg.text());
+            System.out.println("is string:" + dsd);
+            LinkProcessing.add(dsd);
         } catch (RuntimeException ex) {
-            replyMessage = STANDARD_ERROR_MSG;
+            return new SendMessage(chatId, ex.getMessage());
         }
-
-        return new SendMessage(chatId, replyMessage);
+        System.out.println("size:" + LinkProcessing.getLinks().size() + " /   " + msg.text());
+        return new SendMessage(chatId, TRACK_OK);
     }
 }

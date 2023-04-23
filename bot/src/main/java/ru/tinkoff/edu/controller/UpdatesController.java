@@ -10,6 +10,6 @@ import ru.tinkoff.edu.scrapperlink.dto.request.LinkUpdate;
 public class UpdatesController {
 
     public void update(@RequestBody LinkUpdate linkUpdate) {
-        //send update, error handling if occurs
+        System.out.println("check");
     }
 }
