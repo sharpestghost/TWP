@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.hw5_tempfolder.service.impl;
+package ru.tinkoff.edu.hw5_tempfolder.service.jdbc;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;

@@ -8,5 +8,5 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface LinkChatRepo extends QueryRepo<LinkChat> {
-    void remove(long chatId, long linkId);
+    void untrack(long chatId, long linkId);
 }

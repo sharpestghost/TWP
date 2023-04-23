@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
 import ru.tinkoff.edu.exception.ResultNotFoundException;
 import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
@@ -12,6 +13,7 @@ import ru.tinkoff.edu.hw5_tempfolder.repo.LinkRepo;
 
 import java.util.List;
 
+@Repository
 @RequiredArgsConstructor
 public class LinkImpl implements LinkRepo {
     private final JdbcTemplate template;

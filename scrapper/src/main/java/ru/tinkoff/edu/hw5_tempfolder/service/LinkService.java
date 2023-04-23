@@ -7,8 +7,9 @@ import java.net.URI;
 import java.util.List;
 
 public interface LinkService {
-    Link add(long tgChatId) throws InvalidInputDataException;
-    Link remove(long tgChatId, URI url);
+    Link add(String url, String linkname, String description) throws InvalidInputDataException;
+    Link remove(URI url);
+    void update(Link link);
     List<Link> listAll();
     List<Link> listAllByChatId(long tgChatId);
 }
