@@ -31,15 +31,8 @@ public class ListCommand implements CommandInfo {
         Long chatId = msg.chat().id();
         if (supports(update)) {
             Set<URI> response = LinkProcessing.getLinks();
-          /*  try {
-                //get tracking links
-            } catch (RuntimeException ex) {
-                return new SendMessage(chatId, STANDARD_ERROR_MSG);
-            }*/
-
             StringBuilder linksStringBuilder = new StringBuilder(!response.isEmpty() ?
                     LIST_MESSAGE : SPECIAL_MESSAGE);
-            System.out.println("list check" + response.size());
                 for (URI link : response) {
                     linksStringBuilder.append("\n").append(link.toString());
                 }

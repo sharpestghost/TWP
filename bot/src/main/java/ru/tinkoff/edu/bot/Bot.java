@@ -16,7 +16,6 @@ public class Bot {
     private final List<CommandInfo> supportedCommands;
     private final InputCommandsHandler inputHandler;
     private static final String INVALID_COMMAND = "Invalid command option.";
-    private static final String REPLY_MSG = "this is rpl msg";
 
     public Bot(@Value("${app.accessToken}") String accessToken, List<CommandInfo> supportedCommands, InputCommandsHandler handler) {
         this.supportedCommands = supportedCommands;

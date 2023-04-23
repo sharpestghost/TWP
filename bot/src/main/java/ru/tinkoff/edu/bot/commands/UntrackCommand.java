@@ -35,7 +35,6 @@ public class UntrackCommand implements CommandInfo {
         } catch (RuntimeException ex) {
             return new SendMessage(chatId, UNTRACK_ERRORNOTTRACEABLE);
         }
-        System.out.println("size:" + LinkProcessing.getLinks().size() + " /   " + msg.text());
         return new SendMessage(chatId, UNTRACK_OK);
     }
 }

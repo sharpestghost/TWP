@@ -21,13 +21,10 @@ public class InputCommandsHandler {
     }
     public void addLastAction(long id, CommandInfo command) {
         userLastCommands.put(id, command);
-        System.out.println("Map: " + userLastCommands.entrySet());
     }
 
     public CommandInfo checkLastAction(long id) {
-        System.out.println("Map: " + userLastCommands.entrySet());
         CommandInfo lastCommand = userLastCommands.remove(id);
-        System.out.println(lastCommand);
         return lastCommand;
     }
 /*

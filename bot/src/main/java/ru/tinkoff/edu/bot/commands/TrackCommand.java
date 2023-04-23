@@ -37,12 +37,10 @@ public class TrackCommand implements CommandInfo {
         Long chatId = msg.chat().id();
         try {
             URI dsd = LinkProcessing.validate(msg.text());
-            System.out.println("is string:" + dsd);
             LinkProcessing.add(dsd);
         } catch (RuntimeException ex) {
             return new SendMessage(chatId, ex.getMessage());
         }
-        System.out.println("size:" + LinkProcessing.getLinks().size() + " /   " + msg.text());
         return new SendMessage(chatId, TRACK_OK);
     }
 }
