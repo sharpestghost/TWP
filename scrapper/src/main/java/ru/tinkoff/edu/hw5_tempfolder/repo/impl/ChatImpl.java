@@ -5,10 +5,12 @@ import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
 import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
 import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
 import ru.tinkoff.edu.hw5_tempfolder.repo.ChatRepo;
+import ru.tinkoff.edu.hw5_tempfolder.service.ChatService;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,6 +25,7 @@ public class ChatImpl implements ChatRepo {
 
     private static final String ADD_CHAT = "INSERT INTO chat(id, chatname, description) VALUES (?, ?, ?)";
     private static final String SELECT_ALL = "SELECT * FROM chat";
+    private static final String SELECT_BY_ID = "SELECT * FROM chat WHERE id=?";
     private static final String REMOVE_BY_ID = "DELETE FROM chat WHERE id=?";
     private static final String REMOVE_BY_NAME = "DELETE FROM chat WHERE chatname=?";
     private static final String SELECT_LINKS = "SELECT l.id id, l.linkname linkname, l.url url, l.description description, l.updated_at updated_at" +
@@ -42,6 +45,12 @@ public class ChatImpl implements ChatRepo {
     }
 
     @Override
+    public Chat get(long chatId) {
+        return template.queryForObject("select * from chat where tg_chat_id=?", rowMapper, chatId);
+
+    }
+
+    @Override
     public void remove(long id) {
         template.update(REMOVE_BY_ID, id);
     }
@@ -56,6 +65,7 @@ public class ChatImpl implements ChatRepo {
         return template.query(SELECT_ALL, rowMapper);
     }
 
+    @Override
     public List<Link> findAllLinks(long id) {
         template.update(SELECT_LINKS, id);
         return template.query(SELECT_LINKS, linkRowMapper);

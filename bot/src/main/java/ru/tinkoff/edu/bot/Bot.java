@@ -20,7 +20,7 @@ public class Bot {
     public Bot(@Value("${app.accessToken}") String accessToken, List<CommandInfo> supportedCommands, InputCommandsHandler handler) {
         this.supportedCommands = supportedCommands;
         this.inputHandler = handler;
-        this.telegramBot = new TelegramBot(accessToken);
+        telegramBot = new TelegramBot(accessToken);
     }
 
     public void start() {

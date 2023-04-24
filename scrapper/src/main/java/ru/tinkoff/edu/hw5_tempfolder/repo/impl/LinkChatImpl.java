@@ -1,26 +1,75 @@
 package ru.tinkoff.edu.hw5_tempfolder.repo.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import ru.tinkoff.edu.exception.DataNotFoundException;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
+import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
+import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
 import ru.tinkoff.edu.hw5_tempfolder.entity.LinkChat;
+import ru.tinkoff.edu.hw5_tempfolder.repo.ChatRepo;
 import ru.tinkoff.edu.hw5_tempfolder.repo.LinkChatRepo;
+import ru.tinkoff.edu.hw5_tempfolder.repo.LinkRepo;
+import ru.tinkoff.edu.hw5_tempfolder.repo.mapper.ChatMapper;
 import ru.tinkoff.edu.hw5_tempfolder.repo.mapper.LinkChatMapper;
+import ru.tinkoff.edu.hw5_tempfolder.repo.mapper.LinkMapper;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
 public class LinkChatImpl implements LinkChatRepo {
     private final JdbcTemplate template;
-    private static final String INSERT_QUERY = "INSERT INTO chat_link(chat_id, link_id) VALUES (?, ?)";
-    private static final String REMOVE_CHATLINK = "DELETE FROM chat_link WHERE chat_id=? AND link_id=?";
+    private final LinkRepo linkRepo;
+    private final ChatRepo chatRepo;
+    private final ChatMapper chatRowMapper;
+    private final LinkMapper linkRowMapper;
+    private static final String INSERT_LINK = "INSERT INTO link (id, url, linkname) VALUES (?, ?, ?)";
+    private static final String INSERT_CHATLINK = "INSERT INTO link_chat (chat_id, link_id) VALUES (?, ?)";
+    private static final String REMOVE_CHATLINK = "DELETE FROM link_chat WHERE chat_id=? AND link_id=?";
     private static final String SELECT_ALL = "SELECT * FROM link_chat";
+    private static final String SELECT_LINK = "SELECT COUNT(*) FROM link";
+    private static final String SELECT_LINKS_BY_CHAT_ID = "SELECT * FROM link WHERE id IN (SELECT link_id FROM link_chat WHERE chat_id=?)";
+    private static final String SELECT_CHATS_BY_LINK_ID = "SELECT * FROM chat WHERE id IN (SELECT chat_id FROM link_chat where link_id=?)";
+    private static final String SELECT_CHATLINK = "SELECT FROM link_chat WHERE chat_id=? AND link_id = ?";
+    private static final String INSERT_CHATLINK_ALREADYEXISTS = "This link is already tracking in this chat.";
+    private static final String REMOVE_NOTFOUND = "Link not found.";
+    private static final String REMOVE_OK = "Link successfully untracked";
 
+
+    @Transactional
+    @Override
+    public List<Link> getLinksByChatId(long chatId) {
+        Chat chat = chatRepo.get(chatId);
+        if (chat == null) {
+            throw new DataNotFoundException(REMOVE_NOTFOUND);
+        }
+        return template.query(SELECT_LINKS_BY_CHAT_ID, linkRowMapper, chatId);
+    }
+
+    @Transactional
+    public Link add(long chatId, Link link) throws InvalidInputDataException {
+        if (link == null) {
+            throw new InvalidInputDataException();
+        }
+        long linkId = link.getId();
+        int cnt = template.update(SELECT_LINK, linkId);
+        if (cnt == 0) {
+            linkRepo.add(link);
+        }
+        cnt = template.update(SELECT_CHATLINK, chatId, linkId);
+        if (cnt > 0) {
+            throw new DataNotFoundException(INSERT_CHATLINK_ALREADYEXISTS);
+        } else {
+            template.update(INSERT_CHATLINK, chatId, linkId);
+        }
+        return link;
+    }
+
+
+    //old method
     @Override
     public void add(LinkChat linkChat) throws InvalidInputDataException {
         long linkId = linkChat.getLinkId();
@@ -28,13 +77,14 @@ public class LinkChatImpl implements LinkChatRepo {
         if (linkChat == null || linkChat.getChatId() == null || linkChat.getLinkId() == null) {
             throw new InvalidInputDataException();
         }
-        int result = template.update(INSERT_QUERY, chatId, linkId);
+        int result = template.update(INSERT_CHATLINK, chatId, linkId);
         if (result == 0) {
             throw new InvalidInputDataException();
         }
     }
 
     @Override
+    @Transactional
     public void untrack(long chatId, long linkId) {
         int result = template.update(REMOVE_CHATLINK, chatId, linkId);
         if (result == 0) {
@@ -42,6 +92,12 @@ public class LinkChatImpl implements LinkChatRepo {
         } else {
             System.out.println("Link successfully untracked");
         }
+    }
+
+    @Override
+    @Transactional
+    public List<Chat> getChatsByLinkId(Link link) {
+        return template.query(SELECT_LINKS_BY_CHAT_ID, chatRowMapper, link.getId());
     }
 
     @Override

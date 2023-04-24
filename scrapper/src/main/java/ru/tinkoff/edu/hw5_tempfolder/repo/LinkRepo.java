@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface LinkRepo extends QueryRepo<Link> {
     void remove(long id);
-    void updateData(long linkId);
+    void updateLinkData(long linkId);
     Link getByLink(String link) throws ResultNotFoundException;
 }
