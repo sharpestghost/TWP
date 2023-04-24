@@ -1,16 +1,16 @@
 package ru.tinkoff.edu.hw5_tempfolder.service.jdbc;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.hw5_tempfolder.entity.LinkChat;
 import ru.tinkoff.edu.hw5_tempfolder.service.LinkChatUpdater;
 
 import java.util.List;
-@Repository
-@RequiredArgsConstructor
+@Service
+@AllArgsConstructor
 public class JdbcLinkChatUpdater implements LinkChatUpdater {
     private final JdbcTemplate template;
     private final RowMapper<LinkChat> rowMapper = new DataClassRowMapper<>(LinkChat.class);

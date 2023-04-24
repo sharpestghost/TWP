@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.hw5_tempfolder.repo.impl;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,7 +16,7 @@ import ru.tinkoff.edu.hw5_tempfolder.repo.LinkRepo;
 import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class LinkImpl implements LinkRepo {
     private final JdbcTemplate template;
     private final RowMapper<Link> rowMapper = new DataClassRowMapper<>(Link.class);

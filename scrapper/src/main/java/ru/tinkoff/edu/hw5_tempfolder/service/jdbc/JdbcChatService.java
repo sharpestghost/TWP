@@ -19,9 +19,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class JdbcChatService implements ChatService {
-    private final JdbcTemplate template;
     private final ChatRepo chatRepo;
-
 
     @Override
     public void register(long chatId, String name, String description) throws InvalidInputDataException {

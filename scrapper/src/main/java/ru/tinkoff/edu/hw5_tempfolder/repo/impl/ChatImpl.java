@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.hw5_tempfolder.repo.impl;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +18,7 @@ import java.sql.ResultSet;
 import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ChatImpl implements ChatRepo {
     private final JdbcTemplate template;
     private final RowMapper<Chat> rowMapper = new DataClassRowMapper<>(Chat.class);

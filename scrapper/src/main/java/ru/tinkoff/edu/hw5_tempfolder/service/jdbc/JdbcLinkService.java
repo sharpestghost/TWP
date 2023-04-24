@@ -1,8 +1,8 @@
 package ru.tinkoff.edu.hw5_tempfolder.service.jdbc;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
+import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
 import ru.tinkoff.edu.hw5_tempfolder.entity.LinkChat;
 import ru.tinkoff.edu.hw5_tempfolder.repo.ChatRepo;
@@ -12,8 +12,8 @@ import ru.tinkoff.edu.hw5_tempfolder.service.LinkService;
 import java.net.URI;
 import java.util.List;
 
-@Repository
-@RequiredArgsConstructor
+@Service
+@AllArgsConstructor
 public class JdbcLinkService implements LinkService {
     private final LinkChat linkChat;
     private final LinkRepo linkRepo;
