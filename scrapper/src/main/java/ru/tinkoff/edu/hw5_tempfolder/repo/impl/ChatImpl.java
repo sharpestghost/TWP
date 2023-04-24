@@ -46,7 +46,7 @@ public class ChatImpl implements ChatRepo {
 
     @Override
     public Chat get(long chatId) {
-        return template.queryForObject("select * from chat where tg_chat_id=?", rowMapper, chatId);
+        return template.queryForObject(SELECT_BY_ID, rowMapper, chatId);
 
     }
 

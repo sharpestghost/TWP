@@ -20,28 +20,37 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JdbcChatService implements ChatService {
     private final JdbcTemplate template;
-    private final RowMapper<Chat> rowMapper = new DataClassRowMapper<>(Chat.class);
-    private final RowMapper<Link> linkRowMapper = new DataClassRowMapper<>(Link.class);
+    private final ChatRepo chatRepo;
 
-    private static final String ADD_CHAT = "INSERT INTO chat(id, chatname, description) VALUES (?, ?, ?)";
-    private static final String SELECT_ALL = "SELECT * FROM chat";
-    private static final String REMOVE_BY_ID = "DELETE FROM chat WHERE id=?";
-    private static final String REMOVE_BY_NAME = "DELETE FROM chat WHERE chatname=?";
-    private static final String SELECT_LINKS = "SELECT l.id id, l.linkname linkname, l.url url, l.description description, l.updated_at updated_at" +
-            " FROM link l INNER JOIN link_chat lc WHERE lc.chat_id = ?";
 
     @Override
-    public void register(long tgChatId, String name, String description) throws InvalidInputDataException {
-
+    public void register(long chatId, String name, String description) throws InvalidInputDataException {
+        Chat chat = new Chat();
+        chat.setId(chatId);
+        chat.setChatName(name);
+        chat.setDescription(description);
+        chatRepo.add(chat);
     }
 
     @Override
-    public void unregister(long tgChatId) {
-
+    public void unregister(long chatId) {
+        chatRepo.remove(chatId);
     }
 
     @Override
-    public List<Chat> getChatsForLink(Link link) {
-        return null;
+    public Chat getById(long chatId) {
+        return chatRepo.get(chatId);
     }
+
+    @Override
+    public List<Link> getLinksByChat(long chatId) {
+        return chatRepo.findAllLinks(chatId);
+    }
+
+    @Override
+    public List<Chat> findAll() {
+        return chatRepo.findAll();
+    }
+
+
 }

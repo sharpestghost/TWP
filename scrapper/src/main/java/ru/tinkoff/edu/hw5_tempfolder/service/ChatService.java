@@ -9,5 +9,7 @@ import java.util.List;
 public interface ChatService {
     void register(long tgChatId, String name, String description) throws InvalidInputDataException;
     void unregister(long tgChatId);
-    List<Chat> getChatsForLink(Link link);
+    Chat getById(long tgChatId);
+    List<Chat> findAll();
+    List<Link> getLinksByChat(long chatId);
 }
