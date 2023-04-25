@@ -21,7 +21,7 @@ public class LinkUpdaterScheduler {
     private final StackOverflowLinksUpdater stackLinksUpdater;
     @Scheduled(fixedDelayString = "#{delay(interval)}")
     public void update() {
-        List<Link> links = linkService.findLinksForUpdate();
+        List<Link> links = linkService.getLinksForUpdate();
         for (Link link: links) {
             ParsedObject object = LinkParser.parseLink(link.toString());
             if (object instanceof GithubRepo repo) {

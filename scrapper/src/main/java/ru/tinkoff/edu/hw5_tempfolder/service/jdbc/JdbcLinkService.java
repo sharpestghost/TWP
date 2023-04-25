@@ -1,8 +1,9 @@
 package ru.tinkoff.edu.hw5_tempfolder.service.jdbc;
 
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import ru.tinkoff.edu.converter.EntityConverter;
+import ru.tinkoff.edu.exception.InvalidInputDataException;
 import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
 import ru.tinkoff.edu.hw5_tempfolder.entity.LinkChat;
 import ru.tinkoff.edu.hw5_tempfolder.repo.ChatRepo;
@@ -15,14 +16,14 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class JdbcLinkService implements LinkService {
-    private final LinkChat linkChat;
     private final LinkRepo linkRepo;
     private final ChatRepo chatRepo;
 
     @Override
-    public Link add(Long chatId, URI url) {
-       //add implementation here
-        return new Link();
+    public Link add(Long chatId, URI url) throws InvalidInputDataException {
+       Link link = EntityConverter.createLink(url.toString());
+       linkRepo.add(link);
+       return link;
     }
 
     @Override
@@ -41,9 +42,8 @@ public class JdbcLinkService implements LinkService {
     }
 
     @Override
-    public List<Link> findLinksForUpdate() {
-        //task 1.5
-        return null;
+    public List<Link> getLinksForUpdate() {
+        return linkRepo.getOldLinksListForUpdate();
     }
 
 

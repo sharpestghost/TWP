@@ -13,6 +13,9 @@ import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
 import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
 import ru.tinkoff.edu.hw5_tempfolder.repo.LinkRepo;
 
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Repository
@@ -66,6 +69,12 @@ public class LinkImpl implements LinkRepo {
     @Override
     public List<Link> findAll() {
         return template.query(SELECT_ALL, rowMapper);
+    }
+
+    public List<Link> getOldLinksListForUpdate() {
+        return findAll().stream().filter(link -> link.getLastUpdateDate()
+                .isBefore(OffsetDateTime.of(LocalDateTime.now().minusWeeks(1),ZoneOffset.UTC)))
+                .toList();
     }
 
 }
