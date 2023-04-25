@@ -5,20 +5,22 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.tinkoff.edu.GithubRepo;
+import ru.tinkoff.edu.dto.response.QuestionResponse;
 import ru.tinkoff.edu.dto.response.RepoResponse;
 
+import java.time.Duration;
 import java.time.OffsetDateTime;
 
-public class GitHubClient {
+public class GithubClient {
 
     private static final String GITHUB_URL = "https://api.github.com";
     private final WebClient webClient;
 
-    public GitHubClient() {
+    public GithubClient() {
         webClient = returnBaseClient();
     }
 
-    public GitHubClient(String url) {
+    public GithubClient(String url) {
         webClient = returnClientByLink(url);
     }
 
@@ -37,14 +39,11 @@ public class GitHubClient {
                 bodyToMono(String.class).share().toString();
     }
 
-    public RepoResponse getRepo(GithubRepo githubRepo) {
-        try {
-            JSONObject obj = new JSONObject(requestRepo(githubRepo.user(), githubRepo.repo()));
-            return new RepoResponse(obj.getString("full_name"),
-                    OffsetDateTime.parse(obj.getString("pushed_at")));
-        } catch (JSONException e) {
-            return null;
-        }
+    public RepoResponse getRepo(String user, String repo) {
+        return webClient.get()
+                .uri(requestRepo(user, repo))
+                .retrieve().bodyToMono(RepoResponse.class)
+                .timeout(Duration.ofSeconds(15)).block();
     }
 
 }

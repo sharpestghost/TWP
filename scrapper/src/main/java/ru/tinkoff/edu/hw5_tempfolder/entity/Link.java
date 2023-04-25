@@ -1,12 +1,10 @@
 package ru.tinkoff.edu.hw5_tempfolder.entity;
 
-import jdk.jshell.Snippet;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import nonapi.io.github.classgraph.json.Id;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
 @Data
@@ -19,5 +17,5 @@ public class Link {
     private String linkName;
     private String description;
     private OffsetDateTime lastUpdateDate;
-
+    private Integer answerCount;
 }

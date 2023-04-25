@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.controller;
+package ru.tinkoff.edu.converter;
 
 import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.dto.response.LinkResponse;

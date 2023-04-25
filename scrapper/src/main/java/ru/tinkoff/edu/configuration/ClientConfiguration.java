@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.tinkoff.edu.client.BotClient;
-import ru.tinkoff.edu.client.GitHubClient;
-import ru.tinkoff.edu.client.ScrapperClient;
+import ru.tinkoff.edu.client.GithubClient;
 import ru.tinkoff.edu.client.StackOverflowClient;
 
 import java.time.Duration;
@@ -17,8 +16,8 @@ public class ClientConfiguration {
     private Duration interval;
 
     @Bean
-    public GitHubClient gitHubClient() {
-        return new GitHubClient();
+    public GithubClient gitHubClient() {
+        return new GithubClient();
     }
 
     @Bean

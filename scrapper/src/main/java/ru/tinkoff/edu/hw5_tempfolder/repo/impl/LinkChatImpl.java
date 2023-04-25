@@ -95,8 +95,8 @@ public class LinkChatImpl implements LinkChatRepo {
 
     @Override
     @Transactional
-    public List<Chat> getChatsByLinkId(Link link) {
-        return template.query(SELECT_LINKS_BY_CHAT_ID, chatRowMapper, link.getId());
+    public List<Chat> getChatsByLinkId(long linkId) {
+        return template.query(SELECT_LINKS_BY_CHAT_ID, chatRowMapper, linkId);
     }
 
     @Override
