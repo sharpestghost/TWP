@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.hw5_tempfolder.service.updaters;
+package ru.tinkoff.edu.service.updaters;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,8 +6,7 @@ import ru.tinkoff.edu.client.BotClient;
 import ru.tinkoff.edu.dto.request.LinkUpdate;
 import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
 import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
-import ru.tinkoff.edu.hw5_tempfolder.service.LinkChatService;
-import ru.tinkoff.edu.hw5_tempfolder.service.LinkService;
+import ru.tinkoff.edu.service.LinkChatService;
 
 import java.net.URI;
 

@@ -1,18 +1,12 @@
-package ru.tinkoff.edu.hw5_tempfolder.service.jdbc;
+package ru.tinkoff.edu.service.jdbc;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.jdbc.core.DataClassRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
 import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
 import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
-import ru.tinkoff.edu.hw5_tempfolder.repo.ChatRepo;
-import ru.tinkoff.edu.hw5_tempfolder.repo.impl.ChatImpl;
-import ru.tinkoff.edu.hw5_tempfolder.service.ChatService;
+import ru.tinkoff.edu.domain.jdbc.repo.ChatRepo;
+import ru.tinkoff.edu.service.ChatService;
 
 import java.util.List;
 

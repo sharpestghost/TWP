@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.hw5_tempfolder.repo.mapper;
+package ru.tinkoff.edu.domain.jdbc.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;

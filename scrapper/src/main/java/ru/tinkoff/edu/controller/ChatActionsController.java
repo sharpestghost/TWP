@@ -2,12 +2,10 @@ package ru.tinkoff.edu.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
-import ru.tinkoff.edu.hw5_tempfolder.repo.impl.ChatImpl;
-import ru.tinkoff.edu.hw5_tempfolder.service.ChatService;
+import ru.tinkoff.edu.service.ChatService;
 
 @RestController
 @RequestMapping(name = "/tg-chat/{id}")

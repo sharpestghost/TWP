@@ -7,7 +7,7 @@ import ru.tinkoff.edu.dto.request.AddLinkRequest;
 import ru.tinkoff.edu.dto.request.RemoveLinkRequest;
 import ru.tinkoff.edu.dto.response.LinkResponse;
 import ru.tinkoff.edu.dto.response.ListLinksResponse;
-import ru.tinkoff.edu.hw5_tempfolder.service.LinkService;
+import ru.tinkoff.edu.service.LinkService;
 
 @RestController
 @RequestMapping(name = "/links")

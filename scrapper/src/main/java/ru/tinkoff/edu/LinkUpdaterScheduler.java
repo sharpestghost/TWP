@@ -5,10 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
-import ru.tinkoff.edu.hw5_tempfolder.service.LinkService;
-import ru.tinkoff.edu.hw5_tempfolder.service.LinkUpdater;
-import ru.tinkoff.edu.hw5_tempfolder.service.updaters.GithubLinksUpdater;
-import ru.tinkoff.edu.hw5_tempfolder.service.updaters.StackOverflowLinksUpdater;
+import ru.tinkoff.edu.service.LinkService;
+import ru.tinkoff.edu.service.updaters.GithubLinksUpdater;
+import ru.tinkoff.edu.service.updaters.StackOverflowLinksUpdater;
 
 import java.util.List;
 

@@ -1,18 +1,14 @@
-package ru.tinkoff.edu.hw5_tempfolder.service.updaters;
+package ru.tinkoff.edu.service.updaters;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.tinkoff.edu.GithubLP;
 import ru.tinkoff.edu.GithubRepo;
-import ru.tinkoff.edu.LinkParser;
 import ru.tinkoff.edu.ParsedObject;
-import ru.tinkoff.edu.client.GithubClient;
 import ru.tinkoff.edu.converter.EntityConverter;
 import ru.tinkoff.edu.dto.response.RepoResponse;
 import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
-import ru.tinkoff.edu.hw5_tempfolder.repo.LinkRepo;
-import ru.tinkoff.edu.hw5_tempfolder.service.LinkService;
-import ru.tinkoff.edu.hw5_tempfolder.service.LinkUpdater;
+import ru.tinkoff.edu.service.LinkService;
+import ru.tinkoff.edu.service.LinkUpdater;
 
 import java.time.OffsetDateTime;
 

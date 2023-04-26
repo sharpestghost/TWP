@@ -1,17 +1,14 @@
-package ru.tinkoff.edu.hw5_tempfolder.repo.impl;
+package ru.tinkoff.edu.domain.jdbc.impl;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.exception.DataNotFoundException;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
-import ru.tinkoff.edu.exception.ResultNotFoundException;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
 import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
-import ru.tinkoff.edu.hw5_tempfolder.repo.LinkRepo;
+import ru.tinkoff.edu.domain.jdbc.repo.LinkRepo;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
