@@ -7,4 +7,10 @@ import reactor.core.scheduler.Scheduler;
 
 @Validated
 @ConfigurationProperties(prefix = "app", ignoreUnknownFields = false)
-public record ApplicationConfig(@NotNull String test,  @NotNull Scheduler scheduler) {}
+public record ApplicationConfig(@NotNull String test,  @NotNull Scheduler scheduler,@NotNull AccessType dbAccessType) {}
+
+enum AccessType {
+    JDBC,
+    JPA,
+    JOOQ
+}
