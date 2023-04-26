@@ -2,7 +2,7 @@ package codegen;
 
 import org.jooq.codegen.GenerationTool;
 import org.jooq.meta.jaxb.*;
-
+//Exception in thread "main" java.lang.NoSuchMethodError: 'java.lang.Boolean org.jooq.meta.jaxb.Generate.isGeneratedAnnotationJooqVersion()'
 public class JooqCodegen {
     public static void main(String[] args) throws Exception {
         Database database = new Database()
@@ -11,23 +11,6 @@ public class JooqCodegen {
                 .withExcludes("")
                 .withInputSchema("public");
 
-        Generate options = new Generate()
-                .withGeneratedAnnotation(true)
-                .withGeneratedAnnotationDate(false)
-                .withNullableAnnotation(true)
-                .withNullableAnnotationType("org.jetbrains.annotations.Nullable")
-                .withNonnullAnnotation(true)
-                .withNonnullAnnotationType("org.jetbrains.annotations.NotNull")
-                .withJpaAnnotations(false)
-                .withValidationAnnotations(true)
-                .withSpringAnnotations(true)
-                .withConstructorPropertiesAnnotation(true)
-                .withConstructorPropertiesAnnotationOnPojos(true)
-                .withConstructorPropertiesAnnotationOnRecords(true)
-                .withFluentSetters(false)
-                .withDaos(false)
-                .withPojos(true);
-
         Jdbc jdbc = new Jdbc()
                 .withDriver("org.postgresql.Driver")
                 .withUrl("jdbc:postgresql://localhost:5432/scrapper")
@@ -35,7 +18,7 @@ public class JooqCodegen {
                 .withPassword("secretpword");
 
         Target target = new Target()
-                .withPackageName("ru.tinkoff.edu.java.scrapper.domain.jooq")
+                .withPackageName("ru.tinkoff.edu.domain.jooq")
                 .withDirectory("scrapper/src/main/java");
 
         Configuration configuration = new Configuration()
@@ -43,7 +26,6 @@ public class JooqCodegen {
                 .withGenerator(
                         new Generator()
                                 .withDatabase(database)
-                                .withGenerate(options)
                                 .withTarget(target)
                 );
 
