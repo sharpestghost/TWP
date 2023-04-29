@@ -6,7 +6,7 @@ import ru.tinkoff.edu.GithubRepo;
 import ru.tinkoff.edu.ParsedObject;
 import ru.tinkoff.edu.converter.EntityConverter;
 import ru.tinkoff.edu.dto.response.RepoResponse;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
+import ru.tinkoff.edu.entity.Link;
 import ru.tinkoff.edu.service.LinkService;
 import ru.tinkoff.edu.service.LinkUpdater;
 

@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.converter.EntityConverter;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
-import ru.tinkoff.edu.domain.jdbc.repo.ChatRepo;
-import ru.tinkoff.edu.domain.jdbc.repo.LinkRepo;
+import ru.tinkoff.edu.entity.Link;
+import ru.tinkoff.edu.domain.repo.ChatRepo;
+import ru.tinkoff.edu.domain.repo.LinkRepo;
 import ru.tinkoff.edu.service.LinkService;
 
 import java.net.URI;

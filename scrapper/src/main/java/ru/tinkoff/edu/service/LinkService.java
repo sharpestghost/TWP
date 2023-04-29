@@ -1,8 +1,7 @@
 package ru.tinkoff.edu.service;
 
 import ru.tinkoff.edu.exception.InvalidInputDataException;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
+import ru.tinkoff.edu.entity.Link;
 
 import java.net.URI;
 import java.util.List;

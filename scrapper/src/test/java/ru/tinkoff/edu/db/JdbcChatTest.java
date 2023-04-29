@@ -10,7 +10,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.configuration.DBConfiguration;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
+import ru.tinkoff.edu.entity.Chat;
 import ru.tinkoff.edu.domain.jdbc.impl.ChatImpl;
 
 import java.sql.Connection;

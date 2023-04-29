@@ -1,7 +1,6 @@
-package ru.tinkoff.edu.domain.jdbc.repo;
+package ru.tinkoff.edu.domain.repo;
 
 import ru.tinkoff.edu.exception.InvalidInputDataException;
-import ru.tinkoff.edu.hw5_tempfolder.entity.LinkChat;
 
 import java.util.List;
 

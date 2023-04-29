@@ -3,9 +3,10 @@ package ru.tinkoff.edu.configuration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.tinkoff.edu.domain.jdbc.repo.ChatRepo;
-import ru.tinkoff.edu.domain.jdbc.repo.LinkChatRepo;
-import ru.tinkoff.edu.domain.jdbc.repo.LinkRepo;
+import ru.tinkoff.edu.domain.repo.ChatRepo;
+import ru.tinkoff.edu.domain.repo.LinkChatRepo;
+import ru.tinkoff.edu.domain.repo.LinkRepo;
+import ru.tinkoff.edu.entity.LinkChat;
 import ru.tinkoff.edu.service.ChatService;
 import ru.tinkoff.edu.service.LinkChatService;
 import ru.tinkoff.edu.service.LinkService;
@@ -28,7 +29,7 @@ public class JdbcAccessConfig {
     }
 
     @Bean
-    public LinkChatService linkChatService(LinkChatRepo linkChatRepo) {
+    public LinkChatService<LinkChat> linkChatService(LinkChatRepo linkChatRepo) {
         return new JdbcLinkChatService(linkChatRepo);
     }
 }

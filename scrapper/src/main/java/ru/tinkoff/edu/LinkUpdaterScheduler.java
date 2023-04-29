@@ -4,7 +4,7 @@ package ru.tinkoff.edu;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
+import ru.tinkoff.edu.entity.Link;
 import ru.tinkoff.edu.service.LinkService;
 import ru.tinkoff.edu.service.updaters.GithubLinksUpdater;
 import ru.tinkoff.edu.service.updaters.StackOverflowLinksUpdater;

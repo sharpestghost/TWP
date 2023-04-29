@@ -6,7 +6,9 @@ import ru.tinkoff.edu.client.StackOverflowClient;
 import ru.tinkoff.edu.dto.response.QuestionResponse;
 import ru.tinkoff.edu.dto.response.RepoResponse;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
+import ru.tinkoff.edu.entity.Link;
+
+import java.net.URI;
 
 public class EntityConverter {
     private static final GithubClient githubClient = new GithubClient();
@@ -30,6 +32,10 @@ public class EntityConverter {
             }
         }
         return link;
+    }
+
+    public static Link createLink(URI url) throws InvalidInputDataException {
+        return createLink(url.toString());
     }
 
     public static RepoResponse getResponse(GithubRepo repo) {

@@ -1,16 +1,17 @@
 package ru.tinkoff.edu.service;
 
+import ru.tinkoff.edu.entity.Follow;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
-import ru.tinkoff.edu.hw5_tempfolder.entity.LinkChat;
+import ru.tinkoff.edu.entity.Chat;
+import ru.tinkoff.edu.entity.Link;
+import ru.tinkoff.edu.entity.LinkChat;
 
 import java.util.List;
 
-public interface LinkChatService {
+public interface LinkChatService<T> {
     void add(LinkChat linkChat) throws InvalidInputDataException;
     void remove(LinkChat linkChat);
-    List<LinkChat> findAll();
+    List<T> findAll();
     List<Link> getLinksByChatId(long chatId);
     List<Chat> getChatsByLink(long linkId);
 }

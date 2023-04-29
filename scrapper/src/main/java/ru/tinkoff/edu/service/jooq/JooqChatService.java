@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.domain.jooq.Tables;
 import ru.tinkoff.edu.exception.ChatNotFoundException;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
+import ru.tinkoff.edu.entity.Chat;
+import ru.tinkoff.edu.entity.Link;
 import ru.tinkoff.edu.service.ChatService;
 
 import java.time.Instant;
@@ -22,14 +22,14 @@ public class JooqChatService implements ChatService {
     private DSLContext context;
     @Transactional
     @Override
-    public void register(long chatId, String name, String description) throws InvalidInputDataException {
+    public void register(long chatId, String name) throws InvalidInputDataException {
         Chat chat = getById(chatId);
         if (chat == null) {
             LocalDateTime now = Instant.ofEpochMilli(new Date().getTime())
                             .atOffset(ZoneOffset.UTC).toLocalDateTime();
-            context.insertInto(Tables.CHAT, Tables.CHAT.ID, Tables.CHAT.CHATNAME, Tables.CHAT.DESCRIPTION,
+            context.insertInto(Tables.CHAT, Tables.CHAT.ID, Tables.CHAT.CHATNAME,
                             Tables.CHAT.CREATED_AT, Tables.CHAT.UPDATED_AT)
-                    .values((int)chatId, name, description, now, now);
+                    .values((int)chatId, name, now, now);
         }
         //add exception for duplicate later
     }
@@ -62,6 +62,7 @@ public class JooqChatService implements ChatService {
                 .fetchInto(Chat.class);
     }
 
+    /*
     @Override
     public List<Link> getLinksByChat(long chatId) {
         Set<Integer> linkIds = new HashSet<>(context.select(Tables.LINK_CHAT, Tables.LINK_CHAT.LINK_ID)
@@ -73,4 +74,5 @@ public class JooqChatService implements ChatService {
                 .where(Tables.LINK.ID.in(linkIds))
                 .fetchInto(Link.class);
     }
+     */
 }

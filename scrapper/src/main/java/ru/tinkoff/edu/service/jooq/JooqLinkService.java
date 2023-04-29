@@ -6,9 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.converter.EntityConverter;
 import ru.tinkoff.edu.domain.jooq.Tables;
-import ru.tinkoff.edu.exception.DataNotFoundException;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
+import ru.tinkoff.edu.entity.Link;
 import ru.tinkoff.edu.service.LinkService;
 
 import java.net.URI;

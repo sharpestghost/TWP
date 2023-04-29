@@ -1,9 +1,7 @@
 package ru.tinkoff.edu.domain.jdbc.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
-import ru.tinkoff.edu.hw5_tempfolder.entity.LinkChat;
+import ru.tinkoff.edu.entity.LinkChat;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

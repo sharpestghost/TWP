@@ -2,7 +2,7 @@ package ru.tinkoff.edu.domain.jdbc.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
+import ru.tinkoff.edu.entity.Chat;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

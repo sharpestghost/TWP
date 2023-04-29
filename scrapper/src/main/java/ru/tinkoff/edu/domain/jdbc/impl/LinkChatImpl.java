@@ -7,14 +7,14 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.domain.jdbc.mapper.ChatMapper;
 import ru.tinkoff.edu.domain.jdbc.mapper.LinkChatMapper;
 import ru.tinkoff.edu.domain.jdbc.mapper.LinkMapper;
-import ru.tinkoff.edu.domain.jdbc.repo.ChatRepo;
-import ru.tinkoff.edu.domain.jdbc.repo.LinkChatRepo;
-import ru.tinkoff.edu.domain.jdbc.repo.LinkRepo;
+import ru.tinkoff.edu.domain.repo.ChatRepo;
+import ru.tinkoff.edu.domain.repo.LinkChatRepo;
+import ru.tinkoff.edu.domain.repo.LinkRepo;
 import ru.tinkoff.edu.exception.DataNotFoundException;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
-import ru.tinkoff.edu.hw5_tempfolder.entity.LinkChat;
+import ru.tinkoff.edu.entity.Chat;
+import ru.tinkoff.edu.entity.Link;
+import ru.tinkoff.edu.entity.LinkChat;
 
 import java.util.List;
 

@@ -1,8 +1,9 @@
-package ru.tinkoff.edu.hw5_tempfolder.entity;
+package ru.tinkoff.edu.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import nonapi.io.github.classgraph.json.Id;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
@@ -12,10 +13,18 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 public class Link {
     @Id
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "url")
     private String URL;
+
+    @Column(name = "linkname")
     private String linkName;
-    private String description;
+
+    @Column(name = "updated_at")
     private OffsetDateTime lastUpdateDate;
+
+    @Column(name = "answer_count")
     private Integer answerCount;
 }

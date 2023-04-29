@@ -1,7 +1,7 @@
-package ru.tinkoff.edu.domain.jdbc.repo;
+package ru.tinkoff.edu.domain.repo;
 
 import ru.tinkoff.edu.exception.ResultNotFoundException;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
+import ru.tinkoff.edu.entity.Link;
 
 import java.util.List;
 

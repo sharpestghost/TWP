@@ -7,10 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.domain.jooq.Tables;
 import ru.tinkoff.edu.exception.DataNotFoundException;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Chat;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
-import ru.tinkoff.edu.hw5_tempfolder.entity.LinkChat;
-import ru.tinkoff.edu.service.ChatService;
+import ru.tinkoff.edu.entity.Chat;
+import ru.tinkoff.edu.entity.Link;
+import ru.tinkoff.edu.entity.LinkChat;
 import ru.tinkoff.edu.service.LinkChatService;
 
 import java.util.HashSet;

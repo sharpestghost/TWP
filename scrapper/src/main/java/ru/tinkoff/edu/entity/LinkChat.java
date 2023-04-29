@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.hw5_tempfolder.entity;
+package ru.tinkoff.edu.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
