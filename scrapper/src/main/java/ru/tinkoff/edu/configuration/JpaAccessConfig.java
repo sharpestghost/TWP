@@ -1,6 +1,8 @@
 package ru.tinkoff.edu.configuration;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import ru.tinkoff.edu.domain.jpa.JpaChatRepo;
 import ru.tinkoff.edu.domain.jpa.JpaLCRepo;
 import ru.tinkoff.edu.domain.jpa.JpaLinkRepo;
@@ -12,6 +14,8 @@ import ru.tinkoff.edu.service.jpa.JpaChatService;
 import ru.tinkoff.edu.service.jpa.JpaLCService;
 import ru.tinkoff.edu.service.jpa.JpaLinkService;
 
+@Configuration
+@ConditionalOnProperty(prefix = "app", havingValue = "jpa", name = "db-access-type")
 public class JpaAccessConfig {
     @Bean
     public LinkService linkService(JpaChatRepo chatRepo, JpaLinkRepo linkRepo, JpaLCRepo linkChatRepo) {
