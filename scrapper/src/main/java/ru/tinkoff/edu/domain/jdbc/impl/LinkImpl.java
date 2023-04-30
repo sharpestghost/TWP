@@ -69,9 +69,8 @@ public class LinkImpl implements LinkRepo {
     }
 
     public List<Link> getOldLinksListForUpdate() {
-        return findAll().stream().filter(link -> link.getLastUpdateDate()
-                .isBefore(OffsetDateTime.of(LocalDateTime.now().minusWeeks(1),ZoneOffset.UTC)))
-                .toList();
+       findAll().stream().forEach(link -> System.out.println(link.getId() + " " + link.getLastUpdateDate()));
+        return findAll();
     }
 
 }

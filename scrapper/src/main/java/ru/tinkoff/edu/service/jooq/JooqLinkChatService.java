@@ -44,7 +44,7 @@ public class JooqLinkChatService implements LinkChatService<LinkChat> {
 
     @Transactional
     @Override
-    public void remove(LinkChat linkChat) {
+    public void untrack(LinkChat linkChat) {
         if (linkChat == null) {
             throw new InvalidInputDataException();
         }

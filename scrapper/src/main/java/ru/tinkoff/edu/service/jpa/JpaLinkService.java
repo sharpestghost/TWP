@@ -2,6 +2,7 @@ package ru.tinkoff.edu.service.jpa;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import ru.tinkoff.edu.converter.EntityConverter;
 import ru.tinkoff.edu.domain.jpa.JpaChatRepo;
 import ru.tinkoff.edu.domain.jpa.JpaLCRepo;
 import ru.tinkoff.edu.domain.jpa.JpaLinkRepo;
@@ -23,12 +24,9 @@ public class JpaLinkService implements LinkService {
     @Transactional
     @Override
     public Link add(Long chatId, URI url) throws InvalidInputDataException {
-        System.out.println("sdsd");
         Chat chat = chatRepo.findById(chatId).orElse(null);
-        Link link = new Link();
-       // Link link = linkRepo.findByLink(url.toString()).orElseGet(
-        //        () -> linkRepo.save(EntityConverter.createLink(url)));
-
+        Link link = linkRepo.findByLink(url.toString()).orElseGet(
+                        () -> linkRepo.save(EntityConverter.createLink(url)));
         if (chat == null || link == null || linkChatRepo.findByChatAndLink(chat, link).isPresent()) {
             throw new InvalidInputDataException();
         }
@@ -43,11 +41,11 @@ public class JpaLinkService implements LinkService {
     @Override
     public Link remove(Long chatId, URI url) throws InvalidInputDataException {
         Chat chat = chatRepo.findById(chatId).orElse(null);
-        Link link = new Link();
-        if (chat == null) {
+        Link link = EntityConverter.createLink(url);
+        if (chat == null || link == null) {
             throw new InvalidInputDataException();
         }
-        //linkChatRepo.remove(chat, link);
+        linkRepo.delete(link);
         return link;
     }
 
@@ -72,5 +70,12 @@ public class JpaLinkService implements LinkService {
     @Override
     public List<Link> getLinksForUpdate() {
         return null;
+    }
+
+    private Follow getFollow(Link link, Chat chat) {
+        Follow follow = new Follow();
+        follow.setLink(link);
+        follow.setChat(chat);
+        return follow;
     }
 }

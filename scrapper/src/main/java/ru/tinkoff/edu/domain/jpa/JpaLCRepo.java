@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JpaLCRepo extends JpaRepository<Follow, Long> {
+
     Optional<Follow> findByChatAndLink(Chat chat, Link link);
     @Query(value = "select f.Chat from Link_Chat f where f.link_id=:id", nativeQuery = true)
     List<Link> getLinksByChatId(long id);

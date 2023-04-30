@@ -27,7 +27,7 @@ public class JpaLCService implements LinkChatService<Follow> {
     }
 
     @Override
-    public void remove(Follow linkChat) {
+    public void untrack(Follow linkChat) {
 
     }
 

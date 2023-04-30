@@ -23,7 +23,7 @@ public class JdbcLinkChatService implements LinkChatService<LinkChat> {
     }
 
     @Override
-    public void remove(LinkChat linkChat) {
+    public void untrack(LinkChat linkChat) {
         linkChatRepo.untrack(linkChat.getChat_id(), linkChat.getLink_id());
     }
 

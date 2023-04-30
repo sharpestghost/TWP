@@ -20,7 +20,7 @@ public class Link {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "url")
+    @Column(name = "url", unique = true, nullable = false)
     private String URL;
 
     @Column(name = "linkname")
