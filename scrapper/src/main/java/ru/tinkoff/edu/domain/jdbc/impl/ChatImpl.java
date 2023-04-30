@@ -19,12 +19,12 @@ public class ChatImpl implements ChatRepo {
     private final RowMapper<Chat> rowMapper = new DataClassRowMapper<>(Chat.class);
     private final RowMapper<Link> linkRowMapper = new DataClassRowMapper<>(Link.class);
 
-    private static final String ADD_CHAT = "INSERT INTO chat(id, chatname, description) VALUES (?, ?, ?)";
+    private static final String ADD_CHAT = "INSERT INTO chat(id, chatname) VALUES (?, ?)";
     private static final String SELECT_ALL = "SELECT * FROM chat";
     private static final String SELECT_BY_ID = "SELECT * FROM chat WHERE id=?";
     private static final String REMOVE_BY_ID = "DELETE FROM chat WHERE id=?";
     private static final String REMOVE_BY_NAME = "DELETE FROM chat WHERE chatname=?";
-    private static final String SELECT_LINKS = "SELECT l.id id, l.linkname linkname, l.url url, l.description description, l.updated_at updated_at" +
+    private static final String SELECT_LINKS = "SELECT l.id id, l.linkname linkname, l.url url, l.updated_at updated_at" +
             " FROM link l INNER JOIN link_chat lc WHERE lc.chat_id = ?";
     @Override
     public void add(Chat chat) throws InvalidInputDataException {
@@ -33,11 +33,10 @@ public class ChatImpl implements ChatRepo {
         }
         Long id = chat.getId();
         String name = chat.getChatName();
-        String description = chat.getDescription();
-        if (id == null || name == null || description == null) {
+        if (id == null || name == null) {
             throw new InvalidInputDataException();
         }
-        template.update(ADD_CHAT, id, name, description);
+        template.update(ADD_CHAT, id, name);
     }
 
     @Override

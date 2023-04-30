@@ -6,6 +6,7 @@ import ru.tinkoff.edu.entity.Link;
 import java.net.URI;
 import java.util.List;
 
+
 public interface LinkService {
     Link add(Long tgChatId, URI url) throws InvalidInputDataException;
     Link remove(Long tgChatId, URI url) throws InvalidInputDataException;

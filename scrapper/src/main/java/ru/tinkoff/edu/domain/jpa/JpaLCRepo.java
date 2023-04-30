@@ -10,12 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JpaLCRepo extends JpaRepository<Follow, Long> {
-    void track(long chatId, long linkId);
-    void untrack(long chatId, long linkId);
-    void remove(Chat chat, Link link);
-    Optional<Follow> find(Chat chat, Link link);
-    @Query("select f.Chat from Follow f where f.link.id=:id")
-    List<Link> getLinksByChatId(long chatId);
-    @Query("select f.Link from Follow f where f.chat.id=:id")
-    List<Chat> getChatsByLinkId(long linkId);
+    Optional<Follow> findByChatAndLink(Chat chat, Link link);
+    @Query(value = "select f.Chat from Link_Chat f where f.link_id=:id", nativeQuery = true)
+    List<Link> getLinksByChatId(long id);
+    @Query(value = "select f.Link from Link_Chat f where f.chat_id=:id", nativeQuery = true)
+    List<Chat> getChatsByLinkId(long id);
 }

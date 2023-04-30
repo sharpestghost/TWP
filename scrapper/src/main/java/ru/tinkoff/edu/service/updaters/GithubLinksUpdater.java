@@ -12,12 +12,10 @@ import ru.tinkoff.edu.service.LinkUpdater;
 
 import java.time.OffsetDateTime;
 
-@AllArgsConstructor
-@Service
-public class GithubLinksUpdater implements LinkUpdater {
-    private final LinkService linkService;
-    private final BotUpdater botUpdater;
 
+public class GithubLinksUpdater {
+
+/*
     @Override
     public void update(ParsedObject repo, Link link) {
         RepoResponse response = EntityConverter.getResponse((GithubRepo) repo);
@@ -28,4 +26,6 @@ public class GithubLinksUpdater implements LinkUpdater {
         }
         linkService.updateLinkData(link);
     }
+
+ */
 }

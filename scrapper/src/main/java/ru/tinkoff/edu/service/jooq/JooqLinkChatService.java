@@ -18,7 +18,7 @@ import java.util.Set;
 
 @Service
 @AllArgsConstructor
-public class JooqLinkChatService implements LinkChatService {
+public class JooqLinkChatService implements LinkChatService<LinkChat> {
     private DSLContext context;
     private static final String INSERT_LINKCHAT_ALREADYEXISTS = "This link is already tracking.";
     private static final String REMOVE_LINKCHAT_NOTFOUND = "Tracked link not found.";
@@ -31,13 +31,13 @@ public class JooqLinkChatService implements LinkChatService {
         }
         int cnt = context.selectCount()
                 .from(Tables.LINK_CHAT)
-                .where(Tables.LINK_CHAT.CHAT_ID.eq(linkChat.getChatId().intValue()))
-                .and(Tables.LINK_CHAT.LINK_ID.eq(linkChat.getLinkId().intValue()))
+                .where(Tables.LINK_CHAT.CHAT_ID.eq(linkChat.getChat_id().intValue()))
+                .and(Tables.LINK_CHAT.LINK_ID.eq(linkChat.getLink_id().intValue()))
                 .execute();
         if (cnt > 0) {
             throw new DataNotFoundException(INSERT_LINKCHAT_ALREADYEXISTS);
         } else {
-            context.insertInto(Tables.LINK_CHAT, Tables.LINK_CHAT.fields()).values(linkChat.getChatId(), linkChat.getLinkId())
+            context.insertInto(Tables.LINK_CHAT, Tables.LINK_CHAT.fields()).values(linkChat.getChat_id(), linkChat.getLink_id())
                     .execute();
         }
     }
@@ -49,8 +49,8 @@ public class JooqLinkChatService implements LinkChatService {
             throw new InvalidInputDataException();
         }
         int cnt = context.deleteFrom(Tables.LINK_CHAT)
-                .where(Tables.LINK_CHAT.CHAT_ID.eq(linkChat.getChatId().intValue()))
-                .and(Tables.LINK_CHAT.LINK_ID.eq(linkChat.getLinkId().intValue()))
+                .where(Tables.LINK_CHAT.CHAT_ID.eq(linkChat.getChat_id().intValue()))
+                .and(Tables.LINK_CHAT.LINK_ID.eq(linkChat.getLink_id().intValue()))
                 .execute();
         if (cnt == 0) {
             throw new DataNotFoundException(REMOVE_LINKCHAT_NOTFOUND);

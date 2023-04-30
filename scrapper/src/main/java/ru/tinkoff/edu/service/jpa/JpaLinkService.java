@@ -1,16 +1,10 @@
 package ru.tinkoff.edu.service.jpa;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import ru.tinkoff.edu.converter.EntityConverter;
-import ru.tinkoff.edu.converter.ResponseConverter;
 import ru.tinkoff.edu.domain.jpa.JpaChatRepo;
 import ru.tinkoff.edu.domain.jpa.JpaLCRepo;
 import ru.tinkoff.edu.domain.jpa.JpaLinkRepo;
-import ru.tinkoff.edu.domain.repo.ChatRepo;
-import ru.tinkoff.edu.domain.repo.LinkChatRepo;
-import ru.tinkoff.edu.domain.repo.LinkRepo;
 import ru.tinkoff.edu.entity.Chat;
 import ru.tinkoff.edu.entity.Follow;
 import ru.tinkoff.edu.entity.Link;
@@ -21,8 +15,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class JpaLinkService implements LinkService {
     private final JpaChatRepo chatRepo;
     private final JpaLinkRepo linkRepo;
@@ -30,10 +23,13 @@ public class JpaLinkService implements LinkService {
     @Transactional
     @Override
     public Link add(Long chatId, URI url) throws InvalidInputDataException {
+        System.out.println("sdsd");
         Chat chat = chatRepo.findById(chatId).orElse(null);
-        Link link = linkRepo.findByLink(url.toString()).orElseGet(
-                () -> linkRepo.save(EntityConverter.createLink(url)));
-        if (chat == null || linkChatRepo.find(chat, link).isPresent()) {
+        Link link = new Link();
+       // Link link = linkRepo.findByLink(url.toString()).orElseGet(
+        //        () -> linkRepo.save(EntityConverter.createLink(url)));
+
+        if (chat == null || link == null || linkChatRepo.findByChatAndLink(chat, link).isPresent()) {
             throw new InvalidInputDataException();
         }
         Follow follow = new Follow();
@@ -47,11 +43,11 @@ public class JpaLinkService implements LinkService {
     @Override
     public Link remove(Long chatId, URI url) throws InvalidInputDataException {
         Chat chat = chatRepo.findById(chatId).orElse(null);
-        Link link = linkRepo.findByLink(url.toString()).orElse(null);
-        if (chat == null || link == null) {
+        Link link = new Link();
+        if (chat == null) {
             throw new InvalidInputDataException();
         }
-        linkChatRepo.remove(chat, link);
+        //linkChatRepo.remove(chat, link);
         return link;
     }
 

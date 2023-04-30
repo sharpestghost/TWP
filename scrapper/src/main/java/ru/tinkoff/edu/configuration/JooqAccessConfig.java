@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
 import org.springframework.context.annotation.Configuration;
-import ru.tinkoff.edu.entity.;
 import ru.tinkoff.edu.service.ChatService;
 import ru.tinkoff.edu.service.LinkService;
 import ru.tinkoff.edu.service.jooq.JooqChatService;

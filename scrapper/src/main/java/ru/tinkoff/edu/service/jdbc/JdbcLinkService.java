@@ -1,6 +1,7 @@
 package ru.tinkoff.edu.service.jdbc;
 
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.converter.EntityConverter;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
@@ -13,6 +14,7 @@ import java.net.URI;
 import java.util.List;
 
 @Service
+@Primary
 @AllArgsConstructor
 public class JdbcLinkService implements LinkService {
     private final LinkRepo linkRepo;

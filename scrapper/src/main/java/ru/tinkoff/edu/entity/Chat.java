@@ -1,8 +1,6 @@
 package ru.tinkoff.edu.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
@@ -22,10 +20,4 @@ public class Chat {
     private OffsetDateTime createdDate;
     @Column(name = "updated_at")
     private OffsetDateTime lastUpdateDate;
-    /**
-     * @deprecated
-     */
-    @Deprecated
-    @Column(name = "description")
-    private String description;
 }

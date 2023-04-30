@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.configuration;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,11 +11,13 @@ import ru.tinkoff.edu.client.StackOverflowClient;
 import java.time.Duration;
 
 @Configuration
+@RequiredArgsConstructor
 public class ClientConfiguration {
 
-    @Value("${app.scheduler.interval}")
-    private Duration interval;
-
+    @Bean("schedulerIntervalMs")
+    public long schedulerIntervalMs(ApplicationConfig config) {
+        return config.scheduler().interval().toSeconds();
+    }
     @Bean
     public GithubClient gitHubClient() {
         return new GithubClient();
@@ -30,8 +33,4 @@ public class ClientConfiguration {
         return new BotClient();
     }
 
-    @Bean
-    public String delay(Duration interval) {
-        return interval.toString();
-    }
 }

@@ -17,6 +17,7 @@ import ru.tinkoff.edu.service.jpa.JpaLinkService;
 @Configuration
 @ConditionalOnProperty(prefix = "app", havingValue = "jpa", name = "db-access-type")
 public class JpaAccessConfig {
+    /*
     @Bean
     public LinkService linkService(JpaChatRepo chatRepo, JpaLinkRepo linkRepo, JpaLCRepo linkChatRepo) {
         return new JpaLinkService(chatRepo, linkRepo, linkChatRepo);
@@ -31,4 +32,6 @@ public class JpaAccessConfig {
     public LinkChatService<Follow> linkChatService(JpaChatRepo chatRepo, JpaLinkRepo linkRepo, JpaLCRepo linkChatRepo) {
         return new JpaLCService(chatRepo, linkRepo, linkChatRepo);
     }
+
+     */
 }

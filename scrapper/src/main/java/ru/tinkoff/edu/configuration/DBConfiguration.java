@@ -2,6 +2,8 @@ package ru.tinkoff.edu.configuration;
 
 import javax.sql.DataSource;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -20,7 +22,10 @@ public class DBConfiguration {
         dataSourceBuilder.url(postgresqlConfig.url());
         dataSourceBuilder.username(postgresqlConfig.username());
         dataSourceBuilder.password(postgresqlConfig.password());
+        System.out.println("Data:" + postgresqlConfig.url() + postgresqlConfig.username() + postgresqlConfig.password());
         return dataSourceBuilder.build();
+
+
     }
 
     @Bean("jdbcTemplate")

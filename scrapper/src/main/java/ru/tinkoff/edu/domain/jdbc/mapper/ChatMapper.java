@@ -16,7 +16,7 @@ public class ChatMapper implements RowMapper<Chat> {
     @Override
     public Chat mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Chat(rs.getLong("id"),
-                rs.getString("chatname"), rs.getString("description"),
+                rs.getString("chatname"),
                 getDateColumn(rs.getDate("updated_at")), getDateColumn(rs.getDate("created_at")));
     }
 

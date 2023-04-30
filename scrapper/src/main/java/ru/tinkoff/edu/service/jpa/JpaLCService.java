@@ -1,6 +1,6 @@
 package ru.tinkoff.edu.service.jpa;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.domain.jpa.JpaChatRepo;
@@ -16,19 +16,18 @@ import ru.tinkoff.edu.service.LinkChatService;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class JpaLCService implements LinkChatService<Follow> {
     private final JpaChatRepo chatRepo;
     private final JpaLinkRepo linkRepo;
     private final JpaLCRepo linkChatRepo;
     @Override
-    public void add(LinkChat linkChat) throws InvalidInputDataException {
+    public void add(Follow linkChat) throws InvalidInputDataException {
 
     }
 
     @Override
-    public void remove(LinkChat linkChat) {
+    public void remove(Follow linkChat) {
 
     }
 

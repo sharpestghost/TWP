@@ -70,9 +70,9 @@ public class LinkChatImpl implements LinkChatRepo {
     //old method
     @Override
     public void add(LinkChat linkChat) throws InvalidInputDataException {
-        long linkId = linkChat.getLinkId();
-        long chatId = linkChat.getChatId();
-        if (linkChat.getChatId() == null || linkChat.getLinkId() == null) {
+        long linkId = linkChat.getLink_id();
+        long chatId = linkChat.getChat_id();
+        if (linkChat.getChat_id() == null || linkChat.getLink_id() == null) {
             throw new InvalidInputDataException();
         }
         int result = template.update(INSERT_CHATLINK, chatId, linkId);

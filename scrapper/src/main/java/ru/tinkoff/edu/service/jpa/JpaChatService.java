@@ -1,6 +1,7 @@
 package ru.tinkoff.edu.service.jpa;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.domain.jpa.JpaChatRepo;
@@ -10,8 +11,7 @@ import ru.tinkoff.edu.service.ChatService;
 
 import java.util.List;
 
-@Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class JpaChatService implements ChatService {
     private final JpaChatRepo chatRepo;
 

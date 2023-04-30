@@ -9,8 +9,8 @@ import ru.tinkoff.edu.entity.LinkChat;
 import java.util.List;
 
 public interface LinkChatService<T> {
-    void add(LinkChat linkChat) throws InvalidInputDataException;
-    void remove(LinkChat linkChat);
+    void add(T linkChat) throws InvalidInputDataException;
+    void remove(T linkChat);
     List<T> findAll();
     List<Link> getLinksByChatId(long chatId);
     List<Chat> getChatsByLink(long linkId);

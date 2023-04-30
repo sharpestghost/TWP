@@ -11,16 +11,17 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "link_chat")
 public class Follow {
+   // @EmbeddedId
+   // @Column(name = "id")
+  //  @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EmbeddedId
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private LinkChat id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chat_id")
+    @MapsId("chat_id")
     private Chat chat;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "link_id")
+    @MapsId("link_id")
     private Link link;
 }

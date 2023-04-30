@@ -14,11 +14,11 @@ import java.time.OffsetDateTime;
 
 @AllArgsConstructor
 @Service
-public class StackOverflowLinksUpdater implements LinkUpdater {
+public class StackOverflowLinksUpdater{
     private final LinkService linkService;
     private final BotUpdater botUpdater;
 
-
+/*
     @Override
     public void update(ParsedObject question, Link link) {
         QuestionResponse response = EntityConverter.getQuestion((StackOverflowQuestion) question);
@@ -33,4 +33,6 @@ public class StackOverflowLinksUpdater implements LinkUpdater {
         }
         linkService.updateLinkData(link);
     }
+
+ */
 }
