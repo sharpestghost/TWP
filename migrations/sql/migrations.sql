@@ -1,25 +1,25 @@
-create table if not exists Link (
-id int primary key GENERATED ALWAYS AS IDENTITY,
-url varchar(255) unique not null,
-linkname varchar(255) not null,
-updated_at timestamp default current_timestamp,
-answer_count int default 0
-);
+CREATE TABLE
+  IF NOT EXISTS link (
+    id INT PRIMARY KEY generated always AS IDENTITY,
+    url VARCHAR(255) UNIQUE NOT NULL,
+    linkname VARCHAR(255) NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    answer_count INT DEFAULT 0
+  );
 
-create table if not exists Chat (
-id int primary key,
-chatname varchar(255) not null,
-created_at timestamp default current_timestamp,
-updated_at timestamp default current_timestamp
-);
+CREATE TABLE
+  IF NOT EXISTS chat (
+    id INT PRIMARY KEY,
+    chatname VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
 
-create table if not exists Link_Chat (
-chat_id integer not null,
-link_id integer not null,
-primary key (chat_id, link_id),
-foreign key (chat_id) references Chat(id) ON DELETE CASCADE,
-foreign key (link_id) references Link(id) ON DELETE CASCADE
-);
-drop table link_chat;
-drop table link;
-
+CREATE TABLE
+  IF NOT EXISTS link_chat (
+    chat_id INTEGER NOT NULL,
+    link_id INTEGER NOT NULL,
+    PRIMARY KEY (chat_id, link_id),
+    FOREIGN KEY (chat_id) REFERENCES chat (id) ON DELETE CASCADE,
+    FOREIGN KEY (link_id) REFERENCES link (id) ON DELETE CASCADE
+  );
