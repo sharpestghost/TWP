@@ -37,7 +37,6 @@ public class JdbcChatTest extends IntegrationEnviroment {
     @Transactional
     @Rollback
     void addUniqueChat_OK() {
-        //todo: create real tests
         long id = selectMaxId();
         String name = "test";
         String descr = "test";

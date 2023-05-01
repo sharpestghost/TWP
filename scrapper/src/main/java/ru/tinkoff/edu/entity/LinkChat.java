@@ -10,6 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class LinkChat implements Serializable {
     private Long chat_id;
     private Long link_id;

@@ -29,12 +29,15 @@ public class JpaLinkService implements LinkService {
     @Override
     public Link add(Long chatId, URI url) throws InvalidInputDataException {
         Chat chat = chatRepo.findById(chatId).orElse(null);
-        Link link = linkRepo.findByLink(url.toString()).orElseGet(
-                        () -> linkRepo.save(EntityConverter.createLink(url)));
+        boolean isPresent = linkRepo.findByLink(url.toString()).isPresent();
+        System.out.println("!!!!!!!!" + isPresent);
+        Link link = isPresent ? linkRepo.findByLink(url.toString()).orElse(null) :
+        linkRepo.save(EntityConverter.createLink(url));
+
         if (chat == null || link == null || linkChatRepo.findByChatAndLink(chat, link).isPresent()) {
             throw new InvalidInputDataException();
         }
-        linkChatRepo.saveAndFlush(getFollow(link, chat));
+        linkChatRepo.save(getFollow(link, chat));
         return link;
     }
 
@@ -78,9 +81,6 @@ public class JpaLinkService implements LinkService {
     }
 
     private Follow getFollow(Link link, Chat chat) {
-        Follow follow = new Follow();
-        follow.setLink(link);
-        follow.setChat(chat);
-        return follow;
+        return new Follow(link, chat);
     }
 }

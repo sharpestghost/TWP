@@ -15,6 +15,6 @@ public interface JpaLCRepo extends JpaRepository<Follow, Long> {
     Optional<Follow> findByChatAndLink(Chat chat, Link link);
     @Query(value = "select f.* from Link_Chat f where f.link_id=:id", nativeQuery = true)
     List<Chat> getChatsByLinkId(long id);
-    @Query(value = "select f.Link from Link_Chat f where f.chat_id=:id", nativeQuery = true)
+    @Query(value = "select l from link l where id = (SELECT f.link_id from Link_Chat f where f.chat_id=:id)", nativeQuery = true)
     List<Link> getLinksByChatId(long id);
 }

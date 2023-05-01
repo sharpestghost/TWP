@@ -21,6 +21,8 @@ public class EntityConverter {
         }
         Link link = new Link();
         link.setURL(url);
+        //temp
+        link.setLinkName("test");
         if (object instanceof GithubRepo repo) {
             RepoResponse response = getResponse(repo);
             link.setLastUpdateDate(response.updated_at());

@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JpaLinkRepo extends JpaRepository<Link, Long> {
-    @Query(value = "SELECT l.id FROM Link l where l.url = :url", nativeQuery = true)
-    Optional<Long> find(String url);
-    @Query(value = "SELECT l FROM Link l where l.url = :url", nativeQuery = true)
+    @Query(value = "SELECT * FROM Link l where l.url = :url", nativeQuery = true)
     Optional<Link> findByLink(String url);
 }
