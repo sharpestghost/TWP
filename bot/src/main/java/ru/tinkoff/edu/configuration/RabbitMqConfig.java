@@ -17,8 +17,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class RabbitMqConfig {
     private final ApplicationConfig config;
-
-
+    public final String QUEUE_MESSAGES_DLQ = config.queueName() + ".dlx";
+    public final String DLX_EXCHANGE_MESSAGE = config.exchangeName() + ".dlx";
     @Bean
     public ClassMapper classMapper(){
         Map<String, Class<?>> mappings = new HashMap<>();
@@ -33,9 +33,21 @@ public class RabbitMqConfig {
         return new DirectExchange(config.exchangeName(), false, false);
     }
 
+    @Bean
+    public FanoutExchange deadDirectExchange() {
+        return new FanoutExchange(DLX_EXCHANGE_MESSAGE, false, false);
+    }
+
     @Bean("queueBean")
     public Queue queue() {
-        return QueueBuilder.nonDurable(config.queueName()).build();
+        return QueueBuilder.durable(config.queueName())
+                .withArgument("x-dead-letter-exchange", QUEUE_MESSAGES_DLQ)
+                .build();
+    }
+
+    @Bean
+    public Queue deadLetterQueue() {
+        return QueueBuilder.durable(QUEUE_MESSAGES_DLQ).build();
     }
 
     @Bean("bindingBean")
@@ -44,9 +56,15 @@ public class RabbitMqConfig {
     }
 
     @Bean
+    Binding deadLetterBinding() {
+        return BindingBuilder.bind(deadLetterQueue()).to(deadDirectExchange());
+    }
+
+    @Bean
     public MessageConverter jsonMessageConverter(ClassMapper classMapper) {
         Jackson2JsonMessageConverter messageConverter = new Jackson2JsonMessageConverter();
         messageConverter.setClassMapper(classMapper);
         return messageConverter;
     }
+
 }
