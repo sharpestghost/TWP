@@ -45,7 +45,6 @@ public class JdbcLinkService implements LinkService {
 
     @Override
     public List<Link> getLinksForUpdate() {
-        System.out.println("??");
         return linkRepo.getOldLinksListForUpdate();
     }
 

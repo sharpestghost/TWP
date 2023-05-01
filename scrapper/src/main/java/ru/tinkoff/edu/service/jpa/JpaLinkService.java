@@ -70,7 +70,6 @@ public class JpaLinkService implements LinkService {
 
     @Override
     public List<Link> getLinksForUpdate() {
-        System.out.println("offsettime:" + OffsetDateTime.of(LocalDateTime.now().minusHours(1), ZoneOffset.UTC));
         return linkRepo.findAll()
                 .stream()
                 .filter((Link l) -> l.getLastUpdateDate()

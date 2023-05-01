@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BotUpdater {
     private final LinkChatService linkChatService;
-   // private final BotClient botClient;
+    private final BotClient botClient;
     private static final String UPDATE_OK = "Update completed.";
 
     public void postUpdate(Link link) {
@@ -31,6 +31,6 @@ public class BotUpdater {
         chats.forEach((Chat c) -> chatIds.add(c.getId()));
         LinkUpdate request = new LinkUpdate(link.getId(), URI.create(link.getURL()), UPDATE_OK,
                 chatIds);
-        //botClient.postUpdate(request);
+        botClient.postUpdate(request);
     }
 }

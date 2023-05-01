@@ -19,15 +19,13 @@ import java.time.OffsetDateTime;
 public class CommonLinksUpdater implements LinkUpdater {
     private final GithubLinksUpdater githubLinksUpdater;
     private final StackOverflowLinksUpdater stackOverflowLinksUpdater;
-    //private final LinkService linkService;
-    //private final BotUpdater botUpdater;
 
     @Override
     public void update(ParsedObject object, Link link) {
         if (object instanceof GithubRepo repo) {
             githubLinksUpdater.update(repo, link);
         } else if (object instanceof StackOverflowQuestion question) {
-            stackOverflowLinksUpdater.update(question, link);
+           // stackOverflowLinksUpdater.update(question, link);
         }
     }
 }

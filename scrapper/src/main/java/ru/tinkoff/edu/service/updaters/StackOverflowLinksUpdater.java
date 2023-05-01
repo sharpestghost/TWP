@@ -21,18 +21,19 @@ public class StackOverflowLinksUpdater implements LinkUpdater{
 
     @Override
     public void update(ParsedObject question, Link link) {
+
         QuestionResponse response = EntityConverter.getQuestion((StackOverflowQuestion) question);
-        System.out.println("link data: "+ link);
-        if (link.getAnswerCount() == null || response.answer_count() > link.getAnswerCount()) {
-            System.out.println(response.answer_count());
+        if (response.answer_count() > link.getAnswerCount()) {
             link.setAnswerCount(response.answer_count());
             botUpdater.postUpdate(link);
         }
-        if (response.last_activity_date().isBefore(link.getLastUpdateDate())) {
+        if (response.last_activity_date().isAfter(link.getLastUpdateDate())) {
             link.setLastUpdateDate(response.last_activity_date());
             botUpdater.postUpdate(link);
         }
         linkService.updateLinkData(link);
+
+
     }
 
 
