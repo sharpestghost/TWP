@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public abstract class Parser {
-    Parser nextParser;
+    final Parser nextParser;
 
     Parser(Parser nextParser) {
         this.nextParser = nextParser;
