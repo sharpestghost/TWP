@@ -11,6 +11,7 @@ import java.util.Set;
 
 @AllArgsConstructor
 public class ListCommand implements CommandInfo {
+
     private static final String LIST_MESSAGE = "Current list of tracking links:";
     private static final String LIST_DESCRIPTION = "Provide a list of tracking lists.";
     private static final String SPECIAL_MESSAGE = "Tracking list is empty.";

@@ -6,6 +6,10 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 @ConfigurationProperties(prefix = "app", ignoreUnknownFields = false)
-public record ApplicationConfig(@NotNull String test, @NotNull String accessToken) {
+public record ApplicationConfig(@NotNull String test,
+                                @NotNull String accessToken,
+                                @NotNull String queueName,
+                                @NotNull String exchangeName,
+                                @NotNull boolean useQueue) {
 
 }
