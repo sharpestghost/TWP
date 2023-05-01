@@ -15,7 +15,6 @@ public class GithubLP extends Parser {
             if (arr.length > 2) {
                 String user = arr[1];
                 String repo = arr[2];
-                System.out.println(new GithubRepo(user, repo));
                 return new GithubRepo(user, repo);
             }
             else return null;

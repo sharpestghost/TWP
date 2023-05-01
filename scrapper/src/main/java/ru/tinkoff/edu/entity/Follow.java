@@ -12,9 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table(name = "link_chat")
 public class Follow {
-   // @EmbeddedId
-   // @Column(name = "id")
-  //  @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @EmbeddedId
     private LinkChat id;
 

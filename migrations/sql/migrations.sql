@@ -3,7 +3,7 @@ id int primary key,
 url varchar(255) unique not null,
 linkname varchar(255) not null,
 updated_at timestamp default current_timestamp,
-answer_count int
+answer_count int default 0
 );
 
 create table if not exists Chat (
