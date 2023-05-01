@@ -25,7 +25,7 @@ public class CommonLinksUpdater implements LinkUpdater {
         if (object instanceof GithubRepo repo) {
             githubLinksUpdater.update(repo, link);
         } else if (object instanceof StackOverflowQuestion question) {
-           // stackOverflowLinksUpdater.update(question, link);
+           // stackOverflowLinksUpdater.update(question, link); //temporarily commented
         }
     }
 }
