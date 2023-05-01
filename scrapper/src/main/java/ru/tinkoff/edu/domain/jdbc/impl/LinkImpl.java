@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import ru.tinkoff.edu.domain.jdbc.mapper.LinkMapper;
+import ru.tinkoff.edu.entity.Chat;
 import ru.tinkoff.edu.exception.DataNotFoundException;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
 import ru.tinkoff.edu.entity.Link;
@@ -19,12 +21,12 @@ import java.util.List;
 @AllArgsConstructor
 public class LinkImpl implements LinkRepo {
     private final JdbcTemplate template;
-    private final RowMapper<Link> rowMapper = new DataClassRowMapper<>(Link.class);
+    private final LinkMapper rowMapper;
 
     private static final String ADD_CHAT = "INSERT INTO link(id, url, linkname) VALUES (?, ?, ?)";
     private static final String SELECT_ALL = "SELECT * FROM link";
     private static final String SELECT_BY_LINK = "SELECT * FROM link WHERE url = ?";
-    private static final String REMOVE_BY_ID = "DELETE FROM link WHERE id = ?";
+    private static final String REMOVE_BY_URL = "DELETE FROM link WHERE url = ?";
     private static final String UPDATE_LAST_DATE = "UPDATE link SET updated_at = now() WHERE id = ?";
     private static final String REMOVE_NOTFOUND = "Link not found.";
 
@@ -42,7 +44,7 @@ public class LinkImpl implements LinkRepo {
     }
 
     @Override
-    public void add(Link link) throws InvalidInputDataException {
+    public Link add(Link link) throws InvalidInputDataException {
         if (link == null) {
             throw new InvalidInputDataException();
         }
@@ -53,11 +55,12 @@ public class LinkImpl implements LinkRepo {
             throw new InvalidInputDataException();
         }
         template.update(ADD_CHAT, id, url, name);
+        return link;
     }
 
     @Override
-    public void remove(long id) {
-        int cnt = template.update(REMOVE_BY_ID, id);
+    public void remove(String url) {
+        int cnt = template.update(REMOVE_BY_URL, url);
         if (cnt == 0) {
             throw new DataNotFoundException(REMOVE_NOTFOUND);
         }
@@ -69,8 +72,10 @@ public class LinkImpl implements LinkRepo {
     }
 
     public List<Link> getOldLinksListForUpdate() {
-       findAll().stream().forEach(link -> System.out.println(link.getId() + " " + link.getLastUpdateDate()));
-        return findAll();
+        return findAll().stream()
+                .filter(link -> link.getLastUpdateDate()
+                        .isBefore(OffsetDateTime.of(LocalDateTime.now().minusMinutes(10), ZoneOffset.UTC)))
+                .toList();
     }
 
 }

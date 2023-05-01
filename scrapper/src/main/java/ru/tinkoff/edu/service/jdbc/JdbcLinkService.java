@@ -14,7 +14,6 @@ import java.net.URI;
 import java.util.List;
 
 @Service
-@Primary
 @AllArgsConstructor
 public class JdbcLinkService implements LinkService {
     private final LinkRepo linkRepo;
@@ -29,7 +28,9 @@ public class JdbcLinkService implements LinkService {
 
     @Override
     public Link remove(Long chatId, URI url) {
-        return null;
+        Link link = EntityConverter.createLink(url.toString());
+        linkRepo.remove(link.getURL());
+        return link;
     }
 
     @Override
@@ -44,6 +45,7 @@ public class JdbcLinkService implements LinkService {
 
     @Override
     public List<Link> getLinksForUpdate() {
+        System.out.println("??");
         return linkRepo.getOldLinksListForUpdate();
     }
 

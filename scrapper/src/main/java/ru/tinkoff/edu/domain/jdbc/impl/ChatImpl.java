@@ -27,7 +27,7 @@ public class ChatImpl implements ChatRepo {
     private static final String SELECT_LINKS = "SELECT l.id id, l.linkname linkname, l.url url, l.updated_at updated_at" +
             " FROM link l INNER JOIN link_chat lc WHERE lc.chat_id = ?";
     @Override
-    public void add(Chat chat) throws InvalidInputDataException {
+    public void register(Chat chat) throws InvalidInputDataException {
         if (chat == null) {
             throw new InvalidInputDataException();
         }

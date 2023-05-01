@@ -2,6 +2,7 @@ package ru.tinkoff.edu.service.jdbc;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.tinkoff.edu.converter.EntityConverter;
 import ru.tinkoff.edu.entity.Follow;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
 import ru.tinkoff.edu.entity.Chat;
@@ -18,13 +19,15 @@ public class JdbcLinkChatService implements LinkChatService<LinkChat> {
 
 
     @Override
-    public void add(LinkChat linkChat) throws InvalidInputDataException {
-        linkChatRepo.add(linkChat);
+    public void add(Long chatId, String url) throws InvalidInputDataException {
+       //rewrite this
     }
 
     @Override
-    public void untrack(LinkChat linkChat) {
-        linkChatRepo.untrack(linkChat.getChat_id(), linkChat.getLink_id());
+    public Link untrack(Long chatId, String url) {
+        Link link = EntityConverter.createLink(url);
+        linkChatRepo.untrack(chatId, url);
+        return link;
     }
 
     @Override

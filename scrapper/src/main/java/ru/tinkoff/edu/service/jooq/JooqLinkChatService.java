@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.tinkoff.edu.converter.EntityConverter;
 import ru.tinkoff.edu.domain.jooq.Tables;
 import ru.tinkoff.edu.exception.DataNotFoundException;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
@@ -25,36 +26,34 @@ public class JooqLinkChatService implements LinkChatService<LinkChat> {
 
     @Transactional
     @Override
-    public void add(LinkChat linkChat) throws InvalidInputDataException {
-        if (linkChat == null) {
-            throw new InvalidInputDataException();
-        }
+    public void add(Long chatId, String url) throws InvalidInputDataException {
+        Link link = EntityConverter.createLink(url);
+        int linkId = link.getId().intValue();
         int cnt = context.selectCount()
                 .from(Tables.LINK_CHAT)
-                .where(Tables.LINK_CHAT.CHAT_ID.eq(linkChat.getChat_id().intValue()))
-                .and(Tables.LINK_CHAT.LINK_ID.eq(linkChat.getLink_id().intValue()))
+                .where(Tables.LINK_CHAT.CHAT_ID.eq(chatId.intValue()))
+                .and(Tables.LINK_CHAT.LINK_ID.eq(linkId))
                 .execute();
         if (cnt > 0) {
             throw new DataNotFoundException(INSERT_LINKCHAT_ALREADYEXISTS);
         } else {
-            context.insertInto(Tables.LINK_CHAT, Tables.LINK_CHAT.fields()).values(linkChat.getChat_id(), linkChat.getLink_id())
+            context.insertInto(Tables.LINK_CHAT, Tables.LINK_CHAT.fields()).values(chatId.intValue(), linkId)
                     .execute();
         }
     }
 
     @Transactional
     @Override
-    public void untrack(LinkChat linkChat) {
-        if (linkChat == null) {
-            throw new InvalidInputDataException();
-        }
+    public Link untrack(Long chatId, String url) {
+        Link link = EntityConverter.createLink(url);
         int cnt = context.deleteFrom(Tables.LINK_CHAT)
-                .where(Tables.LINK_CHAT.CHAT_ID.eq(linkChat.getChat_id().intValue()))
-                .and(Tables.LINK_CHAT.LINK_ID.eq(linkChat.getLink_id().intValue()))
+                .where(Tables.LINK_CHAT.CHAT_ID.eq(chatId.intValue()))
+                .and(Tables.LINK_CHAT.LINK_ID.eq(link.getId().intValue()))
                 .execute();
         if (cnt == 0) {
             throw new DataNotFoundException(REMOVE_LINKCHAT_NOTFOUND);
         }
+        return link;
     }
 
     @Override

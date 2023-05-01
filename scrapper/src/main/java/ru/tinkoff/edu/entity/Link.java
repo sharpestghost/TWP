@@ -26,7 +26,7 @@ public class Link {
     @Column(name = "linkname")
     private String linkName;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private OffsetDateTime lastUpdateDate;
 
     @Column(name = "answer_count")

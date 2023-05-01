@@ -14,25 +14,26 @@ import java.time.OffsetDateTime;
 
 @AllArgsConstructor
 @Service
-public class StackOverflowLinksUpdater{
+public class StackOverflowLinksUpdater implements LinkUpdater{
     private final LinkService linkService;
     private final BotUpdater botUpdater;
 
-/*
+
     @Override
     public void update(ParsedObject question, Link link) {
         QuestionResponse response = EntityConverter.getQuestion((StackOverflowQuestion) question);
-        link.setLastUpdateDate(OffsetDateTime.now());
-        if (response.answer_count() > link.getAnswerCount()) {
+        System.out.println("link data: "+ link);
+        if (link.getAnswerCount() == null || response.answer_count() > link.getAnswerCount()) {
+            System.out.println(response.answer_count());
             link.setAnswerCount(response.answer_count());
             botUpdater.postUpdate(link);
         }
-        if (response.last_edit_date().isBefore(link.getLastUpdateDate())) {
-            link.setLastUpdateDate(response.last_edit_date());
+        if (response.last_activity_date().isBefore(link.getLastUpdateDate())) {
+            link.setLastUpdateDate(response.last_activity_date());
             botUpdater.postUpdate(link);
         }
         linkService.updateLinkData(link);
     }
 
- */
+
 }

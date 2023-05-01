@@ -17,33 +17,17 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 @Service
 public class CommonLinksUpdater implements LinkUpdater {
-  //  private final GithubLinksUpdater githubLinksUpdater;
-  //  private final StackOverflowLinksUpdater stackOverflowLinksUpdater;
-    private final LinkService linkService;
-    private final BotUpdater botUpdater;
+    private final GithubLinksUpdater githubLinksUpdater;
+    private final StackOverflowLinksUpdater stackOverflowLinksUpdater;
+    //private final LinkService linkService;
+    //private final BotUpdater botUpdater;
 
     @Override
     public void update(ParsedObject object, Link link) {
         if (object instanceof GithubRepo repo) {
-            RepoResponse response = EntityConverter.getResponse(repo);
-            link.setLastUpdateDate(OffsetDateTime.now());
-            if (response.lastUpdateDate().isBefore(link.getLastUpdateDate())) {
-                link.setLastUpdateDate(response.lastUpdateDate());
-                botUpdater.postUpdate(link);
-            }
-            linkService.updateLinkData(link);
+            githubLinksUpdater.update(repo, link);
         } else if (object instanceof StackOverflowQuestion question) {
-            QuestionResponse response = EntityConverter.getQuestion(question);
-            link.setLastUpdateDate(OffsetDateTime.now());
-            if (response.answer_count() > link.getAnswerCount()) {
-                link.setAnswerCount(response.answer_count());
-                botUpdater.postUpdate(link);
-            }
-            if (response.last_edit_date().isBefore(link.getLastUpdateDate())) {
-                link.setLastUpdateDate(response.last_edit_date());
-                botUpdater.postUpdate(link);
-            }
-            linkService.updateLinkData(link);
+            stackOverflowLinksUpdater.update(question, link);
         }
     }
 }

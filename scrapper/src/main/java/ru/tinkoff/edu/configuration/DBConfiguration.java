@@ -22,7 +22,6 @@ public class DBConfiguration {
         dataSourceBuilder.url(postgresqlConfig.url());
         dataSourceBuilder.username(postgresqlConfig.username());
         dataSourceBuilder.password(postgresqlConfig.password());
-        System.out.println("Data:" + postgresqlConfig.url() + postgresqlConfig.username() + postgresqlConfig.password());
         return dataSourceBuilder.build();
 
 

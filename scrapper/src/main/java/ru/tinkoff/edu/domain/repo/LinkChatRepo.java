@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface LinkChatRepo extends QueryRepo<LinkChat> {
     List<Link> getLinksByChatId(long chatId);
-    void untrack(long chatId, long linkId);
+    Link track(long chatId, String url);
+    Link untrack(long chatId, String url);
     List<Chat> getChatsByLinkId(long linkId);
 }

@@ -8,7 +8,8 @@ import java.util.List;
 
 @Repository
 public interface LinkRepo extends QueryRepo<Link> {
-    void remove(long id);
+    Link add(Link url);
+    void remove(String url);
     void updateLinkData(long linkId);
     Link getByLink(String link) throws ResultNotFoundException;
     List<Link> getOldLinksListForUpdate();

@@ -13,8 +13,12 @@ import ru.tinkoff.edu.exception.InvalidInputDataException;
 import ru.tinkoff.edu.service.LinkService;
 
 import java.net.URI;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class JpaLinkService implements LinkService {
@@ -30,11 +34,8 @@ public class JpaLinkService implements LinkService {
         if (chat == null || link == null || linkChatRepo.findByChatAndLink(chat, link).isPresent()) {
             throw new InvalidInputDataException();
         }
-        Follow follow = new Follow();
-        follow.setLink(link);
-        follow.setChat(chat);
-        linkChatRepo.saveAndFlush(follow);
-        return null;
+        linkChatRepo.saveAndFlush(getFollow(link, chat));
+        return link;
     }
 
     @Transactional
@@ -64,12 +65,17 @@ public class JpaLinkService implements LinkService {
 
     @Override
     public void updateLinkData(Link link) {
-
+        linkRepo.save(link);
     }
 
     @Override
     public List<Link> getLinksForUpdate() {
-        return null;
+        System.out.println("offsettime:" + OffsetDateTime.of(LocalDateTime.now().minusHours(1), ZoneOffset.UTC));
+        return linkRepo.findAll()
+                .stream()
+                .filter((Link l) -> l.getLastUpdateDate()
+                        .isBefore(OffsetDateTime.of(LocalDateTime.now().minusHours(1), ZoneOffset.UTC)))
+                .toList();
     }
 
     private Follow getFollow(Link link, Chat chat) {

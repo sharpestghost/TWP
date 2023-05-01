@@ -23,14 +23,15 @@ public class EntityConverter {
         link.setURL(url);
         if (object instanceof GithubRepo repo) {
             RepoResponse response = getResponse(repo);
-            link.setLastUpdateDate(response.lastUpdateDate());
+            link.setLastUpdateDate(response.updated_at());
         } else {
             if (object instanceof StackOverflowQuestion question) {
                 QuestionResponse response = getQuestion(question);
-                link.setLastUpdateDate(response.last_edit_date());
+                link.setLastUpdateDate(response.last_activity_date());
                 link.setAnswerCount(response.answer_count());
             }
         }
+        System.out.println("Converted link:" + link);
         return link;
     }
 

@@ -15,8 +15,8 @@ public class LinkMapper implements RowMapper<Link> {
     @Override
     public Link mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Link(rs.getLong("id"),
-                rs.getString("url"), rs.getString("linkname"), 
-                getDateColumn(rs.getDate("updated_at")), rs.getInt("answerCount"));
+                rs.getString("url"), rs.getString("linkname"),
+                rs.getObject("updated_at", OffsetDateTime.class), rs.getInt("answer_count"));
     }
 
     private OffsetDateTime getDateColumn(Date date) {

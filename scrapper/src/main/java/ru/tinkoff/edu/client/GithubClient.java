@@ -34,16 +34,14 @@ public class GithubClient {
         return WebClient.builder().baseUrl(url).build();
     }
 
-    private String requestRepo(String user, String repo) {
-        return webClient.get().uri("/repos/" + user + "/" + repo).retrieve().
-                bodyToMono(String.class).share().toString();
-    }
 
     public RepoResponse getRepo(String user, String repo) {
         return webClient.get()
-                .uri(requestRepo(user, repo))
-                .retrieve().bodyToMono(RepoResponse.class)
-                .timeout(Duration.ofSeconds(15)).block();
+                .uri("/repos/{user}/{repo}", user, repo)
+                .retrieve()
+                .bodyToMono(RepoResponse.class)
+                .timeout(Duration.ofSeconds(15))
+                .block();
     }
 
 }

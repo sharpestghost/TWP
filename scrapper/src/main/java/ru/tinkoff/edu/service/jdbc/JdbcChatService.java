@@ -20,7 +20,7 @@ public class JdbcChatService implements ChatService {
         Chat chat = new Chat();
         chat.setId(chatId);
         chat.setChatName(name);
-        chatRepo.add(chat);
+        chatRepo.register(chat);
     }
 
     @Override

@@ -14,8 +14,8 @@ import java.time.Duration;
 @RequiredArgsConstructor
 public class ClientConfiguration {
 
-    @Bean("schedulerIntervalMs")
-    public long schedulerIntervalMs(ApplicationConfig config) {
+    @Bean("schedulerInterval")
+    public long schedulerInterval(ApplicationConfig config) {
         return config.scheduler().interval().toSeconds();
     }
     @Bean
