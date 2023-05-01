@@ -15,7 +15,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@ConditionalOnProperty(prefix = "app", name = "use-queue", havingValue = "true")
 public class HttpSendUpdater implements SendUpdater {
     private final BotClient client;
     private final LinkChatService linkChatService;

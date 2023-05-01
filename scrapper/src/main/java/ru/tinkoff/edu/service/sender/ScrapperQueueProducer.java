@@ -15,16 +15,15 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@ConditionalOnProperty(prefix = "app", name = "use-queue", havingValue = "false")
 public class ScrapperQueueProducer implements SendUpdater {
     private final RabbitTemplate template;
     private final LinkChatService linkChatService;
-
+    private final Queue queue;
     @Override
     public void sendUpdates(Link link, String info) {
         List<Chat> chats = linkChatService.getChatsByLink(link.getId());
         LinkUpdate request = new LinkUpdate(link.getId(), URI.create(link.getURL()), info,
                 chats.stream().mapToLong(Chat::getId).boxed().toList());
-        template.convertAndSend(request);
+        template.convertAndSend(queue.getName(), request);
     }
 }
