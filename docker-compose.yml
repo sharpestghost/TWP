@@ -31,7 +31,27 @@ services:
        - ./migrations:/liquibase/changelog
     networks:
        - backend
-       
+
+  RabbitMQ:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    restart: always
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit disk_free_limit 2147483648
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
+  volumes:
+    rabbitmq_data:
+      driver: local
+
+
 networks:
   backend:
 
