@@ -1,4 +1,4 @@
-package ru.tinkoff.edu;
+package ru.tinkoff.edu.client;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.reactive.function.client.WebClient;
