@@ -1,0 +1,15 @@
+name: Bot CI
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'hw8'
+      - 'hw7'
+    paths:
+      - ".github/workflows/scrapper.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
