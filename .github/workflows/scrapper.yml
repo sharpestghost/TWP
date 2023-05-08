@@ -1,4 +1,4 @@
-name: Bot CI
+name: Scr CI
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
           rsername: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build image
-        run: docker build bot.Dockerfile -t ${{ env.REGISTRY}}/${{ env.AUTHOR }}/scrapper:latest
+        run: docker build -f bot.Dockerfile -t ${{ env.REGISTRY}}/${{ env.AUTHOR }}/scrapper:latest
       - name: Push image
         run: mvn --batch-mode deploy
         env: docker push ${{ env.REGISTRY}}/${{ env.AUTHOR }}/scrapper:latest
