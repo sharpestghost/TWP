@@ -8,11 +8,6 @@ on:
       - 'hw7'
     paths:
       - ".github/workflows/scrapper.yml"
-  pull-request:
-    branches:
-      - 'master'
-      - 'hw8'
-      - 'hw7'
 
 jobs:
   build-and-push-image:
