@@ -3,6 +3,7 @@
  */
 
 package ru.tinkoff.edu.domain.jooq.tables;
+
 import java.time.LocalDateTime;
 import java.util.function.Function;
 import org.jooq.Field;
