@@ -15,6 +15,7 @@ on:
 env:
   REGISTRY: ghcr.io
   AUTHOR: sharpestghost
+  IMAGE_NAME: bot
 
 permissions:
   packages: write
@@ -43,7 +44,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build image
-        run: docker build -f bot/Dockerfile -t ${{ env.REGISTRY}}/${{ env.AUTHOR }}/bot:latest .
+        run: docker build -f bot/Dockerfile -t ${{ env.REGISTRY}}/${{ env.AUTHOR }}/${{ env.IMAGE_NAME }}:latest .
 
       - name: Push image
-        run: docker push ${{ env.REGISTRY}}/${{ env.AUTHOR }}/bot:latest
+        run: docker push ${{ env.REGISTRY}}/${{ env.AUTHOR }}/${{ env.IMAGE_NAME }}:latest .
