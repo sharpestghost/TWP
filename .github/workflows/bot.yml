@@ -32,6 +32,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
+          cache: maven
 
       - name: Build app
         run: mvn package -pl bot -am
@@ -47,4 +48,4 @@ jobs:
         run: docker build -f bot/Dockerfile -t ${{ env.REGISTRY}}/${{ env.AUTHOR }}/${{ env.IMAGE_NAME }}:latest .
 
       - name: Push image
-        run: docker push ${{ env.REGISTRY}}/${{ env.AUTHOR }}/${{ env.IMAGE_NAME }}:latest .
+        run: docker push ${{ env.REGISTRY}}/${{ env.AUTHOR }}/${{ env.IMAGE_NAME }}:latest
