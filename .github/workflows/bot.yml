@@ -11,6 +11,7 @@ on:
       - ".github/workflows/**"
       - "pom.xml"
       - "checkstyle.xml"
+      - ".editorconfig"
 
 env:
   REGISTRY: ghcr.io
