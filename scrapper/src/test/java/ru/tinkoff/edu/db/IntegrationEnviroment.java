@@ -36,10 +36,8 @@ public abstract class IntegrationEnviroment {
             ResourceAccessor changelogDir = new DirectoryResourceAccessor(PATH.getParent().resolve("migrations"));
             Liquibase liquibase = new Liquibase("master.xml", changelogDir, database);
             liquibase.update(new Contexts(), new LabelExpression());
-        } catch (SQLException | FileNotFoundException e) {
-            LOGGER.log(Level.WARNING, e.getMessage(), e);
-        } catch (LiquibaseException e) {
-            LOGGER.log(Level.WARNING, e.getDetails(), e);
+        } catch (SQLException | FileNotFoundException | LiquibaseException e) {
+            System.out.println("Something goes wrong...");
         }
     }
 }

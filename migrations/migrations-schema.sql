@@ -1,23 +1,23 @@
-create table IF NOT EXISTS Link (
-id INT primary key generated always as identity,
-url varchar(255) UNIQUE NOT NULL,
-linkname varchar(255) NOT NULL,
-description TEXT,
-updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+create table if not exists Link (
+id int primary key,
+url varchar(255) unique not null,
+linkname varchar(255) not null,
+description text,
+updated_at timestamp default current_timestamp
 );
 
-create table IF NOT EXISTS Chat (
-id INT primary key generated always as identity,
-chatname varchar(255) NOT NULL,
-description TEXT,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+create table if not exists Chat (
+id int primary key,
+chatname varchar(255) not null,
+description text,
+created_at timestamp default current_timestamp,
+updated_at timestamp default current_timestamp
 );
 
-create table IF NOT EXISTS Link_Chat (
+create table if not exists Link_Chat (
 chat_id integer not null,
 link_id integer not null,
-PRIMARY KEY (chat_id, link_id),
-FOREIGN KEY (chat_id) REFERENCES Chat(id),
-FOREIGN KEY (link_id) REFERENCES Link(id)
+primary key (chat_id, link_id),
+foreign key (chat_id) references Chat(id),
+foreign key (link_id) references Link(id)
 );

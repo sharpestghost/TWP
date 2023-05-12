@@ -3,21 +3,17 @@ package ru.tinkoff.edu.bot.commands;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import ru.tinkoff.edu.bot.logic.LinkProcessing;
 
 public class UntrackCommand implements CommandInfo {
-    //Send the link as a reply to remove this from the tracking list
-    private static final String UNTRACK_MESSAGE = "Send the link as a reply to add this to tracking list";
+    private static final String UNTRACK_MESSAGE = "Send the link as a reply to remove this from tracking list";
     private static final String UNTRACK_DESCRIPTION = "Remove links from track";
-    private String replyMessage = "Link was successfully removed from tracking list";
+    private static final String UNTRACK_OK  = "Link was successfully removed from tracking list";
+    private static final String UNTRACK_ERRORNOTTRACEABLE = "link not tracked";
 
     @Override
     public String command() {
         return "/untrack";
-    }
-
-    private boolean isReply(Update update) {
-        Message reply = update.message().replyToMessage();
-        return reply != null && reply.text().equals(UNTRACK_MESSAGE);
     }
 
     @Override
@@ -27,18 +23,18 @@ public class UntrackCommand implements CommandInfo {
 
     @Override
     public SendMessage handle(Update update) {
-        return isReply(update) ? handleReply(update) : new SendMessage(update.message().chat().id(), UNTRACK_DESCRIPTION);
+        return supports(update) ? new SendMessage(update.message().chat().id(), UNTRACK_MESSAGE)
+                : handleReply(update);
     }
 
     private SendMessage handleReply(Update update) {
-        Long chatId = update.message().chat().id();
-        //get link here
+        Message msg = update.message();
+        Long chatId = msg.chat().id();
         try {
-            //add link to list here
+            LinkProcessing.remove(LinkProcessing.validate(msg.text()));
         } catch (RuntimeException ex) {
-            replyMessage = STANDARD_ERROR_MSG;
+            return new SendMessage(chatId, UNTRACK_ERRORNOTTRACEABLE);
         }
-
-        return new SendMessage(chatId, replyMessage);
+        return new SendMessage(chatId, UNTRACK_OK);
     }
 }

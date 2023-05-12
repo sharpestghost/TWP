@@ -1,10 +1,15 @@
 package ru.tinkoff.edu.bot.commands;
 
+import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import ru.tinkoff.edu.dto.response.LinkResponse;
-import ru.tinkoff.edu.dto.response.ListLinksResponse;
+import lombok.AllArgsConstructor;
+import ru.tinkoff.edu.bot.logic.LinkProcessing;
 
+import java.net.URI;
+import java.util.Set;
+
+@AllArgsConstructor
 public class ListCommand implements CommandInfo {
     private static final String LIST_MESSAGE = "Current list of tracking links:";
     private static final String LIST_DESCRIPTION = "Provide a list of tracking lists.";
@@ -22,18 +27,17 @@ public class ListCommand implements CommandInfo {
 
     @Override
     public SendMessage handle(Update update) {
-        Long chatId = update.message().chat().id();
-        ListLinksResponse response = new ListLinksResponse(null, 0);
-        try {
-            //get tracking links
-        } catch (RuntimeException ex) {
-            return new SendMessage(chatId, STANDARD_ERROR_MSG);
+        Message msg = update.message();
+        Long chatId = msg.chat().id();
+        if (supports(update)) {
+            Set<URI> response = LinkProcessing.getLinks();
+            StringBuilder linksStringBuilder = new StringBuilder(!response.isEmpty() ?
+                    LIST_MESSAGE : SPECIAL_MESSAGE);
+                for (URI link : response) {
+                    linksStringBuilder.append("\n").append(link.toString());
+                }
+                return new SendMessage(chatId, linksStringBuilder.toString());
         }
-        StringBuilder linksStringBuilder = new StringBuilder(response.size() != 0 ?
-                LIST_MESSAGE : SPECIAL_MESSAGE);
-
-        for (LinkResponse linkResponse : response.links())
-            linksStringBuilder.append("\n").append(linkResponse.url().toString());
-        return new SendMessage(chatId, linksStringBuilder.toString());
+        return new SendMessage(chatId, STANDARD_ERROR_MSG);
     }
 }

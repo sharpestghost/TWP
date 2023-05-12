@@ -8,19 +8,20 @@ import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SetMyCommands;
 import org.springframework.beans.factory.annotation.Value;
 import ru.tinkoff.edu.bot.commands.CommandInfo;
-
+import ru.tinkoff.edu.bot.commands.InputCommandsHandler;
 import java.util.List;
 
 public class Bot {
-    public final TelegramBot telegramBot;
+    public static TelegramBot telegramBot;
     private final List<CommandInfo> supportedCommands;
+    private final InputCommandsHandler inputHandler;
     private static final String INVALID_COMMAND = "Invalid command option.";
 
-    public Bot(@Value("${app.accessToken}") String accessToken, List<CommandInfo> supportedCommands) {
+    public Bot(@Value("${app.accessToken}") String accessToken, List<CommandInfo> supportedCommands, InputCommandsHandler handler) {
         this.supportedCommands = supportedCommands;
-        this.telegramBot = new TelegramBot(accessToken);
+        this.inputHandler = handler;
+        telegramBot = new TelegramBot(accessToken);
     }
-
 
     public void start() {
         BotCommand[] commands = new BotCommand[supportedCommands.size()];
@@ -37,9 +38,21 @@ public class Bot {
     }
 
     public SendMessage processUpdate(Update update) {
+        long id = update.message().chat().id();
         for (CommandInfo command : supportedCommands)
-            if (command.supports(update)) return command.handle(update);
-
+            if (command.supports(update)) {
+                inputHandler.addLastAction(id, command);
+                return command.handle(update);
+            }
+        CommandInfo lastCommand = inputHandler.checkLastAction(id);
+        if (lastCommand != null) {
+            return lastCommand.handle(update);
+        }
         return new SendMessage(update.message().chat().id(), INVALID_COMMAND);
     }
+
+    public void close() {
+        telegramBot.removeGetUpdatesListener();
+    }
+
 }

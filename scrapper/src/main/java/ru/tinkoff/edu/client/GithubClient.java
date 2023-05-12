@@ -1,18 +1,26 @@
 package ru.tinkoff.edu.client;
 
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.reactive.function.client.WebClient;
+import ru.tinkoff.edu.GithubRepo;
+import ru.tinkoff.edu.dto.response.QuestionResponse;
+import ru.tinkoff.edu.dto.response.RepoResponse;
 
-public class GitHubClient {
+import java.time.Duration;
+import java.time.OffsetDateTime;
+
+public class GithubClient {
 
     private static final String GITHUB_URL = "https://api.github.com";
     private final WebClient webClient;
 
-    public GitHubClient() {
+    public GithubClient() {
         webClient = returnBaseClient();
     }
 
-    public GitHubClient(String url) {
+    public GithubClient(String url) {
         webClient = returnClientByLink(url);
     }
 
@@ -29,6 +37,13 @@ public class GitHubClient {
     private String requestRepo(String user, String repo) {
         return webClient.get().uri("/repos/" + user + "/" + repo).retrieve().
                 bodyToMono(String.class).share().toString();
+    }
+
+    public RepoResponse getRepo(String user, String repo) {
+        return webClient.get()
+                .uri(requestRepo(user, repo))
+                .retrieve().bodyToMono(RepoResponse.class)
+                .timeout(Duration.ofSeconds(15)).block();
     }
 
 }
