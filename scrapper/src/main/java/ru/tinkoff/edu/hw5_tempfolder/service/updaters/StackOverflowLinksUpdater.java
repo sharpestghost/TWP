@@ -25,6 +25,7 @@ public class StackOverflowLinksUpdater implements LinkUpdater {
     private final BotUpdater botUpdater;
 
 
+    @Override
     public void update(ParsedObject question, Link link) {
         QuestionResponse response = EntityConverter.getQuestion((StackOverflowQuestion) question);
         link.setLastUpdateDate(OffsetDateTime.now());
