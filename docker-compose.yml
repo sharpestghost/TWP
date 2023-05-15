@@ -14,7 +14,7 @@ services:
     - 5432:5432
     networks:
     - backend
-   
+
   liquibase-migrations:
     image: liquibase/liquibase:4.18
     depends_on:
@@ -47,9 +47,29 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
 
-  volumes:
-    rabbitmq_data:
-      driver: local
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    network_mode: host
+
+  grafana:
+    image: grafana/grafana-oss
+    volumes:
+      - grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    network_mode: host
+
 
 
 networks:
@@ -57,3 +77,6 @@ networks:
 
 volumes:
   postgres-data:
+  rabbitmq-data:
+  prometheus:
+  grafana:
