@@ -7,7 +7,8 @@ import ru.tinkoff.edu.dto.request.AddLinkRequest;
 import ru.tinkoff.edu.dto.request.RemoveLinkRequest;
 import ru.tinkoff.edu.dto.response.LinkResponse;
 import ru.tinkoff.edu.dto.response.ListLinksResponse;
-import ru.tinkoff.edu.hw5_tempfolder.service.LinkService;
+import ru.tinkoff.edu.service.LinkChatService;
+import ru.tinkoff.edu.service.LinkService;
 
 @RestController
 @RequestMapping(name = "/links")
@@ -15,6 +16,7 @@ import ru.tinkoff.edu.hw5_tempfolder.service.LinkService;
 public class LinksController {
 
     private final LinkService linkService;
+    private final LinkChatService linkChatService;
 
     @GetMapping
     public ListLinksResponse getLinks(@RequestHeader("Tg-Chat-Id") long tgChatId) {
@@ -26,6 +28,6 @@ public class LinksController {
     }
 
     public LinkResponse removeLink(@RequestHeader("Tg-Chat-Id") long tgChatId, @RequestBody RemoveLinkRequest removeLinkRequest) {
-        return ResponseConverter.getLinkResponse(linkService.remove(tgChatId, removeLinkRequest.link()));
+        return ResponseConverter.getLinkResponse(linkChatService.untrack(tgChatId, removeLinkRequest.link().toString()));
     }
 }

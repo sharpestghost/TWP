@@ -25,7 +25,7 @@ public abstract class IntegrationEnviroment {
 
     static {
         DB_CONTAINER = new PostgreSQLContainer<>("postgres:15")
-                .withDatabaseName("scrapper")
+                .withDatabaseName("postgres")
                 .withUsername("admin")
                 .withPassword("secretpword");
         DB_CONTAINER.start();
@@ -36,6 +36,8 @@ public abstract class IntegrationEnviroment {
             ResourceAccessor changelogDir = new DirectoryResourceAccessor(PATH.getParent().resolve("migrations"));
             Liquibase liquibase = new Liquibase("master.xml", changelogDir, database);
             liquibase.update(new Contexts(), new LabelExpression());
+            liquibase.close();
+
         } catch (SQLException | FileNotFoundException | LiquibaseException e) {
             System.out.println("Something goes wrong...");
         }

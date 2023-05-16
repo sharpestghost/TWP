@@ -3,7 +3,7 @@ package ru.tinkoff.edu.converter;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.dto.response.LinkResponse;
 import ru.tinkoff.edu.dto.response.ListLinksResponse;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
+import ru.tinkoff.edu.entity.Link;
 
 import java.net.URI;
 import java.util.List;

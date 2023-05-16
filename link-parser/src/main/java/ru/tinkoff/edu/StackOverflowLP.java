@@ -15,7 +15,6 @@ public class StackOverflowLP extends Parser {
             if (arr.length > 2) {
                 String section = arr[1];
                 long id = Long.parseLong(arr[2]);
-                System.out.println(new StackOverflowQuestion(id));
                 return (section.equals("questions")) ? new StackOverflowQuestion(id) : null;
             }
         }

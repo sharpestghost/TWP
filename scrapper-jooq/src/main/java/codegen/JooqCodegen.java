@@ -2,7 +2,6 @@ package codegen;
 
 import org.jooq.codegen.GenerationTool;
 import org.jooq.meta.jaxb.*;
-//Exception in thread "main" java.lang.NoSuchMethodError: 'java.lang.Boolean org.jooq.meta.jaxb.Generate.isGeneratedAnnotationJooqVersion()'
 public class JooqCodegen {
     public static void main(String[] args) throws Exception {
         Database database = new Database()

@@ -6,7 +6,9 @@ import ru.tinkoff.edu.client.StackOverflowClient;
 import ru.tinkoff.edu.dto.response.QuestionResponse;
 import ru.tinkoff.edu.dto.response.RepoResponse;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
-import ru.tinkoff.edu.hw5_tempfolder.entity.Link;
+import ru.tinkoff.edu.entity.Link;
+
+import java.net.URI;
 
 public class EntityConverter {
     private static final GithubClient githubClient = new GithubClient();
@@ -19,17 +21,24 @@ public class EntityConverter {
         }
         Link link = new Link();
         link.setURL(url);
+        //temp
+        link.setLinkName("test");
         if (object instanceof GithubRepo repo) {
             RepoResponse response = getResponse(repo);
-            link.setLastUpdateDate(response.lastUpdateDate());
+            link.setLastUpdateDate(response.updated_at());
         } else {
             if (object instanceof StackOverflowQuestion question) {
                 QuestionResponse response = getQuestion(question);
-                link.setLastUpdateDate(response.last_edit_date());
+                link.setLastUpdateDate(response.last_activity_date());
                 link.setAnswerCount(response.answer_count());
             }
         }
+        System.out.println("Converted link:" + link);
         return link;
+    }
+
+    public static Link createLink(URI url) throws InvalidInputDataException {
+        return createLink(url.toString());
     }
 
     public static RepoResponse getResponse(GithubRepo repo) {
