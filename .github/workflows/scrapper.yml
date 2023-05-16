@@ -1,0 +1,62 @@
+name: Scr CI
+
+on:
+  push:
+    paths:
+      - "scrapper/**"
+      - ".github/workflows/**"
+      - "pom.xml"
+      - "checkstyle.xml"
+      - ".editorconfig"
+
+env:
+  REGISTRY: ghcr.io
+  AUTHOR: sharpestghost
+
+permissions:
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Build app
+        run: mvn package -pl scrapper -am
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image
+        run: docker build -f scrapper/Dockerfile -t ${{ env.REGISTRY}}/${{ env.AUTHOR }}/scrapper:latest .
+
+      - name: Push image
+        run: docker push ${{ env.REGISTRY}}/${{ env.AUTHOR }}/scrapper:latest
+
+  checkstyle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+          cache: maven
+
+      - name: Checkstyle
+        run: mvn -pl scrapper -am checkstyle:check
