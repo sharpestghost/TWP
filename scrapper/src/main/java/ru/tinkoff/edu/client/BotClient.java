@@ -11,7 +11,7 @@ import ru.tinkoff.edu.dto.request.LinkUpdate;
 @RequiredArgsConstructor
 public class BotClient {
 
-    private static final String BASE_URL = "http://localhost:8080";
+    private static final String BASE_URL = "http://localhost:8081";
     public static final long MS_FOR_UPDATE = 30;
     private final WebClient webClient;
 

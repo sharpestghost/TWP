@@ -15,6 +15,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LinkChat implements Serializable {
-    private Long chatId;
-    private Long linkId;
+    private Long chat_id;
+    private Long link_id;
 }
