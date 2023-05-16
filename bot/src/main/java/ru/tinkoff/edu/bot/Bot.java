@@ -9,6 +9,8 @@ import com.pengrad.telegrambot.request.SetMyCommands;
 import org.springframework.beans.factory.annotation.Value;
 import ru.tinkoff.edu.bot.commands.CommandInfo;
 import ru.tinkoff.edu.bot.commands.InputCommandsHandler;
+import ru.tinkoff.edu.scrapperlink.dto.request.LinkUpdate;
+
 import java.util.List;
 
 public class Bot {
@@ -51,8 +53,15 @@ public class Bot {
         return new SendMessage(update.message().chat().id(), INVALID_COMMAND);
     }
 
+    public void sendMessage(LinkUpdate update) {
+        for (Long chatId: update.tgChatIds()) {
+            telegramBot.execute(new SendMessage(chatId, update.description()));
+        }
+    }
+
     public void close() {
         telegramBot.removeGetUpdatesListener();
     }
+
 
 }

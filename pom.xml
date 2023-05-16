@@ -23,6 +23,7 @@
         <junit.version>5.7.4</junit.version>
         <testcontainers.version>1.18.0</testcontainers.version>
         <org-jooq.version>3.17.12</org-jooq.version>
+        <spring-boot-starter-amqp.version>3.0.6</spring-boot-starter-amqp.version>
     </properties>
     <dependencyManagement>
         <dependencies>

@@ -2,8 +2,9 @@ package ru.tinkoff.edu.bot.commands;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import lombok.AllArgsConstructor;
 import ru.tinkoff.edu.bot.logic.ChatProcessing;
-
+@AllArgsConstructor
 public class StartCommand implements CommandInfo {
 
     private static final String START_MESSAGE = "Enter your username";

@@ -2,6 +2,7 @@ package ru.tinkoff.edu.scrapperlink.client;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.web.reactive.function.client.WebClient;
+import ru.tinkoff.edu.configuration.ScrapperConfig;
 import ru.tinkoff.edu.scrapperlink.dto.request.AddLinkRequest;
 import ru.tinkoff.edu.scrapperlink.dto.request.RemoveLinkRequest;
 import ru.tinkoff.edu.scrapperlink.dto.response.LinkResponse;
@@ -13,6 +14,10 @@ public class ScrapperClient {
     private static final String TG_CHAT_ID_LINK = "/tg-chat/{id}";
     private static final String TG_CHAT_ID_HEADER = "tgChatId";
     private static final String LINKS = "/links";
+
+    public ScrapperClient(String url) {
+        webClient = WebClient.builder().baseUrl(url).build();
+    }
 
     public ScrapperClient() {
         webClient = WebClient.builder().baseUrl(BASE_URL).build();

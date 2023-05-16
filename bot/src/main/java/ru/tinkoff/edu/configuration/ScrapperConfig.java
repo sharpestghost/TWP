@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "client.scrapper")
 public class ScrapperConfig {
     @Value("${baseUrl:http://localhost:8080}")
-    private static String baseUrl;
+    public static String baseUrl;
 
-    public static String getBaseUrl() {
+    public String getBaseUrl() {
         return baseUrl;
     }
 }

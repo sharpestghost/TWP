@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -14,4 +13,4 @@ buildNumber.properties
 /.idea/
 **/target/
 *.iml
->>>>>>> 8bb6fe4 (practice 1 task 1)
+.jpb/jpb-settings.xml
