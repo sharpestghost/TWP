@@ -13,7 +13,7 @@ public interface LinkChatService<T> {
 
     List<T> findAll();
 
-    List<Link> getLinksByChatId(long chatId);
+    List<Link> getLinksByChat(long chatId);
 
     List<Chat> getChatsByLink(long linkId);
 }
