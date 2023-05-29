@@ -25,15 +25,13 @@ public class HelpCommand implements CommandInfo {
     @Override
     public SendMessage handle(Update update) {
         Message msg = update.message();
+        StringBuilder helpStringBuilder = new StringBuilder();
         if (supports(update)) {
-            StringBuilder helpStringBuilder = new StringBuilder();
             for (CommandInfo command : BotCommandsList.getCommands().values()) {
-                helpStringBuilder.append(command.toString()).append("\n");
+                helpStringBuilder.append(command.command() + "   " + command.description()).append("\n");
             }
-        } else {
-            return new SendMessage(msg.chat().id(), STANDARD_ERROR_MSG);
         }
         return new SendMessage(msg.chat().id(), supports(update)
-                ? BotCommandsList.getCommands().toString() : STANDARD_ERROR_MSG);
+            ? helpStringBuilder.toString() : STANDARD_ERROR_MSG);
     }
 }

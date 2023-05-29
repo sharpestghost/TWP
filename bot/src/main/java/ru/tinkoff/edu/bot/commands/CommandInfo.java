@@ -14,10 +14,12 @@ public interface CommandInfo {
     SendMessage handle(Update update);
 
     default boolean supports(Update update) {
-        return update.message().text().equals(command());
+        String msg = update.message().text();
+        return msg != null && msg.equals(command());
     }
 
     default BotCommand toApiCommand() {
         return new BotCommand(command(), description());
     }
+
 }

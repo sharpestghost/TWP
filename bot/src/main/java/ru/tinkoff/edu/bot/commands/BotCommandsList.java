@@ -4,20 +4,21 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Getter;
+import ru.tinkoff.edu.scrapperlink.client.ScrapperClient;
 
 @Getter
 public enum BotCommandsList {
-    START("/start", "registers a new user", new StartCommand()),
-    LIST("/help", "prints a list of current commands", new ListCommand()),
-    HELP("/list", "displays a list of tracking links", new ListCommand()),
-    TRACK("/track", "starts tracking a link", new TrackCommand()),
-    UNTRACK("/untrack", "stops tracking a link", new UntrackCommand());
+
+    START("/start", "registers a new user", new StartCommand(new ScrapperClient())),
+    LIST("/list", "prints a list of current commands", new ListCommand(new ScrapperClient())),
+    HELP("/help", "displays a list of tracking links", new HelpCommand(new ScrapperClient())),
+    TRACK("/track", "starts tracking a link", new TrackCommand(new ScrapperClient())),
+    UNTRACK("/untrack", "stops tracking a link", new UntrackCommand(new ScrapperClient()));
 
     private static final Map<String, CommandInfo> COMMANDS = new HashMap<>();
     private final String name;
     private final String description;
     private final CommandInfo command;
-
 
     static {
         Arrays.stream(values()).forEach(v -> COMMANDS.put(v.name, v.command));
