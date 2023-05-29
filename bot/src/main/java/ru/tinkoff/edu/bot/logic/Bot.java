@@ -1,4 +1,5 @@
-package ru.tinkoff.edu.bot;
+package ru.tinkoff.edu.bot.logic;
+
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
@@ -10,7 +11,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import ru.tinkoff.edu.bot.commands.CommandInfo;
 import ru.tinkoff.edu.bot.commands.InputCommandsHandler;
-import ru.tinkoff.edu.scrapperlink.dto.request.LinkUpdate;
 
 public class Bot {
     public static TelegramBot telegramBot;
@@ -34,6 +34,7 @@ public class Bot {
             for (Update update : updates) {
                 telegramBot.execute(processUpdate(update));
             }
+
             return UpdatesListener.CONFIRMED_UPDATES_ALL;
         });
     }
@@ -53,15 +54,12 @@ public class Bot {
         return new SendMessage(update.message().chat().id(), INVALID_COMMAND);
     }
 
-    public void sendMessage(LinkUpdate update) {
-        for (Long chatId: update.tgChatIds()) {
-            telegramBot.execute(new SendMessage(chatId, update.description()));
-        }
+    public void sendMessage(SendMessage message) {
+        telegramBot.execute(message);
     }
 
     public void close() {
         telegramBot.removeGetUpdatesListener();
     }
-
-
 }
+
