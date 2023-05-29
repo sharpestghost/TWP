@@ -16,6 +16,6 @@ public class QueueProducerConfig {
 
     @Bean
     public SendUpdater linkUpdateSender(RabbitTemplate template, LinkChatService linkService, ChatService chatService, Queue queue) {
-        return new ScrapperQueueProducer(template, linkService, chatService, queue);
+        return new ScrapperQueueProducer(template, linkService, queue);
     }
 }

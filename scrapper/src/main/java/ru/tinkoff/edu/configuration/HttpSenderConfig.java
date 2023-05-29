@@ -15,7 +15,7 @@ public class HttpSenderConfig {
 
     @Bean
     public SendUpdater sendUpdater(BotClient botClient, LinkChatService linkChatService, ChatService chatService) {
-        return new HttpSendUpdater(botClient, linkChatService, chatService);
+        return new HttpSendUpdater(botClient, linkChatService);
     }
 
 }
