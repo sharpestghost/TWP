@@ -15,7 +15,6 @@ public class JpaChatService implements ChatService {
     @Transactional
     @Override
     public void register(long chatId, String name) throws InvalidInputDataException {
-        System.out.println("here?" + chatId + " " + name);
         Chat chat = new Chat();
         chat.setId(chatId);
         chat.setChatName(name);

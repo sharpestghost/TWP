@@ -1,8 +1,6 @@
 package ru.tinkoff.edu.service.jpa;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.domain.jpa.JpaChatRepo;
@@ -29,19 +27,10 @@ public class JpaLCService implements LinkChatService<Follow> {
     public Link untrack(Long chatId, String url) {
         Chat chat = chatRepo.findById(chatId).orElse(null);
         Link link = linkRepo.findByLink(url).orElse(null);
-        System.out.println("i was here" + link + " " + chat);
         if (chat == null || link == null) {
             throw new InvalidInputDataException();
         }
-        System.out.println("cnt:" + linkChatRepo.count());
-        Follow follow = linkChatRepo.findByChatAndLink(chat, link).orElse(null);
-        if (follow != null) {
-            linkChatRepo.delete(follow);
-        }
-        System.out.println(follow);
-
-        linkChatRepo.delete(follow);
-        System.out.println("cnt chg:" + linkChatRepo.count());
+        linkChatRepo.findByChatAndLink(chat, link).ifPresent(linkChatRepo::delete);
         return link;
     }
 
