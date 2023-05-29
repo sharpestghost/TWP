@@ -3,7 +3,6 @@ package ru.tinkoff.edu.service.jdbc;
 import java.net.URI;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.converter.EntityConverter;
 import ru.tinkoff.edu.domain.repo.ChatRepo;
 import ru.tinkoff.edu.domain.repo.LinkRepo;
@@ -11,7 +10,6 @@ import ru.tinkoff.edu.entity.Link;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
 import ru.tinkoff.edu.service.LinkService;
 
-@Service
 @AllArgsConstructor
 public class JdbcLinkService implements LinkService {
     private final LinkRepo linkRepo;

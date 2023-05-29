@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.converter.EntityConverter;
 import ru.tinkoff.edu.domain.jooq.Tables;
@@ -14,7 +13,6 @@ import ru.tinkoff.edu.exception.InvalidInputDataException;
 import ru.tinkoff.edu.service.LinkService;
 
 @AllArgsConstructor
-@Service
 public class JooqLinkService implements LinkService {
     private DSLContext context;
 
