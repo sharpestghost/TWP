@@ -4,6 +4,7 @@ import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -53,9 +54,11 @@ public class JpaLinkService implements LinkService {
     @Transactional
     @Override
     public List<Link> listAll(Long chatId) {
-        Optional<Chat> chat = chatRepo.findById(chatId);
-        return chat.map(value -> linkChatRepo.getLinksByChatId(value.getId()))
-                .orElse(null);
+        System.out.println(chatId);
+        List<Long> linkIds = linkChatRepo.getLinksByChatId(chatId);
+        System.out.println(linkIds.size());
+        System.out.println("size:" + linkRepo.findAllById(linkIds).size());
+        return linkRepo.findAllById(linkIds);
     }
 
     @Override

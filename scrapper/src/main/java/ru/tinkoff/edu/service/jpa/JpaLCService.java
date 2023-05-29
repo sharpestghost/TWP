@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.service.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -28,12 +29,19 @@ public class JpaLCService implements LinkChatService<Follow> {
     public Link untrack(Long chatId, String url) {
         Chat chat = chatRepo.findById(chatId).orElse(null);
         Link link = linkRepo.findByLink(url).orElse(null);
+        System.out.println("i was here" + link + " " + chat);
         if (chat == null || link == null) {
             throw new InvalidInputDataException();
         }
-        Follow follow = new Follow();
-        follow.setLink(link);
-        follow.setChat(chat);
+        System.out.println("cnt:" + linkChatRepo.count());
+        Follow follow = linkChatRepo.findByChatAndLink(chat, link).orElse(null);
+        if (follow != null) {
+            linkChatRepo.delete(follow);
+        }
+        System.out.println(follow);
+
+        linkChatRepo.delete(follow);
+        System.out.println("cnt chg:" + linkChatRepo.count());
         return link;
     }
 
@@ -45,17 +53,15 @@ public class JpaLCService implements LinkChatService<Follow> {
 
     @Transactional
     @Override
-    public List<Link> getLinksByChatId(long chatId) {
-        Optional<Chat> chat = chatRepo.findById(chatId);
-        return chat.map(value -> linkChatRepo.getLinksByChatId(value.getId()))
-                .orElse(null);
+    public List<Link> getLinksByChat(long chatId) {
+        List<Long> linkIds = linkChatRepo.getLinksByChatId(chatId);
+        return linkRepo.findAllById(linkIds);
     }
 
     @Transactional
     @Override
     public List<Chat> getChatsByLink(long linkId) {
-        Optional<Link> link = linkRepo.findById(linkId);
-        return link.map(value -> linkChatRepo.getChatsByLinkId(value.getId()))
-                .orElse(null);
+        List<Long> chatIds = linkChatRepo.getChatIdsByLinkId(linkId);
+        return chatRepo.findAllById(chatIds);
     }
 }
