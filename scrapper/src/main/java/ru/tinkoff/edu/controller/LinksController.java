@@ -1,7 +1,9 @@
 package ru.tinkoff.edu.controller;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,24 +16,27 @@ import ru.tinkoff.edu.dto.response.ListLinksResponse;
 import ru.tinkoff.edu.service.LinkChatService;
 import ru.tinkoff.edu.service.LinkService;
 
+@AllArgsConstructor
 @RestController
-@RequestMapping(name = "/links")
-@RequiredArgsConstructor
+@RequestMapping("/links")
 public class LinksController {
 
     private final LinkService linkService;
     private final LinkChatService linkChatService;
+    private static final String TG_CHAT_ID_HEADER = "Tg-Chat-Id";
 
     @GetMapping
-    public ListLinksResponse getLinks(@RequestHeader("Tg-Chat-Id") long tgChatId) {
-        return ResponseConverter.getListLinksResponse(linkService.listAll(tgChatId));
+    public ListLinksResponse getLinks(@RequestHeader(name = TG_CHAT_ID_HEADER) long id) {
+        return ResponseConverter.getListLinksResponse(linkService.listAll(id));
     }
 
-    public LinkResponse addLink(@RequestHeader("Tg-Chat-Id") long tgChatId, @RequestBody AddLinkRequest addLinkRequest) {
-        return ResponseConverter.getLinkResponse(linkService.add(tgChatId, addLinkRequest.link()));
+    @PostMapping
+    public LinkResponse addLink(@RequestHeader(name = TG_CHAT_ID_HEADER) long id, @RequestBody AddLinkRequest request) {
+        return ResponseConverter.getLinkResponse(linkService.add(id, request.link()));
     }
 
-    public LinkResponse removeLink(@RequestHeader("Tg-Chat-Id") long tgChatId, @RequestBody RemoveLinkRequest removeLinkRequest) {
-        return ResponseConverter.getLinkResponse(linkChatService.untrack(tgChatId, removeLinkRequest.link().toString()));
+    @DeleteMapping
+    public LinkResponse removeLink(@RequestHeader(name = TG_CHAT_ID_HEADER) long id, @RequestBody RemoveLinkRequest request) {
+        return ResponseConverter.getLinkResponse(linkChatService.untrack(id, request.link().toString()));
     }
 }

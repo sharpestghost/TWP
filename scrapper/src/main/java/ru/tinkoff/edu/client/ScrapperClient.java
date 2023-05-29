@@ -9,7 +9,7 @@ import ru.tinkoff.edu.dto.response.ListLinksResponse;
 
 public class ScrapperClient {
     private final WebClient webClient;
-    private static final String BASE_URL = "#{base.url.scrapper}";
+    private static final String BASE_URL = "http://localhost:8080";
     private static final String TG_CHAT_ID_LINK = "/tg-chat/{id}";
     private static final String TG_CHAT_ID_HEADER = "tgChatId";
     private static final String LINKS = "/links";

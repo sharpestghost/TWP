@@ -35,7 +35,7 @@ public class JdbcLinkChatService implements LinkChatService<LinkChat> {
     }
 
     @Override
-    public List<Link> getLinksByChatId(long chatId) {
+    public List<Link> getLinksByChat(long chatId) {
         return linkChatRepo.getLinksByChatId(chatId);
     }
 

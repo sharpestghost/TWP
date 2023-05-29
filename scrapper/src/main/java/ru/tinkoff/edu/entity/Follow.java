@@ -37,10 +37,10 @@ public class Follow {
     }
 
     public Long getChatId() {
-        return id.getChatId();
+        return id.getChat_id();
     }
 
     public Long getLinkId() {
-        return id.getLinkId();
+        return id.getLink_id();
     }
 }

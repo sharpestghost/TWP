@@ -5,14 +5,12 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.dto.request.LinkUpdate;
 import ru.tinkoff.edu.entity.Chat;
 import ru.tinkoff.edu.entity.Link;
 import ru.tinkoff.edu.service.LinkChatService;
 
 
-@Service
 @RequiredArgsConstructor
 public class ScrapperQueueProducer implements SendUpdater {
     private final RabbitTemplate template;

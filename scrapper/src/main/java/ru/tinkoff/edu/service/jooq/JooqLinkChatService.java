@@ -63,7 +63,7 @@ public class JooqLinkChatService implements LinkChatService<LinkChat> {
     }
 
     @Override
-    public List<Link> getLinksByChatId(long chatId) {
+    public List<Link> getLinksByChat(long chatId) {
         //duplicate method from chatservice, fix it from one of next commits
         Set<Integer> linkIds = new HashSet<>(context.select(Tables.LINK_CHAT.LINK_ID)
                 .from(Tables.LINK)

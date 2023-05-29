@@ -1,24 +1,28 @@
 package ru.tinkoff.edu.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.tinkoff.edu.exception.InvalidInputDataException;
 import ru.tinkoff.edu.service.ChatService;
 
-@RestController
-@RequestMapping(name = "/tg-chat/{id}")
 @AllArgsConstructor
+@RestController
+@RequestMapping("/tg-chat")
 public class ChatActionsController {
-    private final ChatService chatService;
-    private static final String TEXT_FIELD = "Lorem ipsum";
+    private final ChatService service;
+    private static final String TG_CHAT_ID_HEADER = "Tg-Chat-Id";
 
-    public void createChat(@PathVariable long id) throws InvalidInputDataException {
-            chatService.register(id, TEXT_FIELD);
+    @PostMapping(value = "/{id}")
+    public void registerChat(@PathVariable("id") Long id, @RequestHeader(name = TG_CHAT_ID_HEADER) String username) {
+        service.register(id, username);
     }
 
-    public void deleteChat(@PathVariable long id) {
-        chatService.unregister(id);
+    @DeleteMapping(value = "/{id}")
+    public void deleteChat(@PathVariable("id") Long id) {
+        service.unregister(id);
     }
 }

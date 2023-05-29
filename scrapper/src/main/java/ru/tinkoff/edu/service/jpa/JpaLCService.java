@@ -1,7 +1,6 @@
 package ru.tinkoff.edu.service.jpa;
 
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.domain.jpa.JpaChatRepo;
@@ -31,9 +30,7 @@ public class JpaLCService implements LinkChatService<Follow> {
         if (chat == null || link == null) {
             throw new InvalidInputDataException();
         }
-        Follow follow = new Follow();
-        follow.setLink(link);
-        follow.setChat(chat);
+        linkChatRepo.findByChatAndLink(chat, link).ifPresent(linkChatRepo::delete);
         return link;
     }
 
@@ -45,17 +42,15 @@ public class JpaLCService implements LinkChatService<Follow> {
 
     @Transactional
     @Override
-    public List<Link> getLinksByChatId(long chatId) {
-        Optional<Chat> chat = chatRepo.findById(chatId);
-        return chat.map(value -> linkChatRepo.getLinksByChatId(value.getId()))
-                .orElse(null);
+    public List<Link> getLinksByChat(long chatId) {
+        List<Long> linkIds = linkChatRepo.getLinksByChatId(chatId);
+        return linkRepo.findAllById(linkIds);
     }
 
     @Transactional
     @Override
     public List<Chat> getChatsByLink(long linkId) {
-        Optional<Link> link = linkRepo.findById(linkId);
-        return link.map(value -> linkChatRepo.getChatsByLinkId(value.getId()))
-                .orElse(null);
+        List<Long> chatIds = linkChatRepo.getChatIdsByLinkId(linkId);
+        return chatRepo.findAllById(chatIds);
     }
 }

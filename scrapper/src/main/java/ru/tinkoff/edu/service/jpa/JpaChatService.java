@@ -15,7 +15,10 @@ public class JpaChatService implements ChatService {
     @Transactional
     @Override
     public void register(long chatId, String name) throws InvalidInputDataException {
-        chatRepo.insertChat(chatId, name);
+        Chat chat = new Chat();
+        chat.setId(chatId);
+        chat.setChatName(name);
+        chatRepo.save(chat);
     }
 
     @Override
