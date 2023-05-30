@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.domain.jooq.Tables;
 import ru.tinkoff.edu.entity.Chat;
@@ -16,7 +15,6 @@ import ru.tinkoff.edu.exception.InvalidInputDataException;
 import ru.tinkoff.edu.service.ChatService;
 
 @AllArgsConstructor
-@Service
 public class JooqChatService implements ChatService {
     private DSLContext context;
 

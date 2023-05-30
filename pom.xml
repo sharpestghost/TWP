@@ -15,7 +15,7 @@
     </modules>
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
-        <spring-boot.version>3.0.1</spring-boot.version>
+        <spring-boot.version>3.0.6</spring-boot.version>
         <spring-cloud.version>2022.0.0</spring-cloud.version>
         <org.sprindoc.version>2.0.2</org.sprindoc.version>
         <org-jetbrains-annotations.version>23.1.0</org-jetbrains-annotations.version>
@@ -55,10 +55,25 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.jetbrains</groupId>
                 <artifactId>annotations</artifactId>
                 <version>${org-jetbrains-annotations.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-registry-prometheus</artifactId>
+                <version>1.11.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-tracing-bridge-brave</artifactId>
+                <version>1.0.4</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.converter.EntityConverter;
 import ru.tinkoff.edu.domain.jooq.Tables;
@@ -16,7 +15,6 @@ import ru.tinkoff.edu.exception.DataNotFoundException;
 import ru.tinkoff.edu.exception.InvalidInputDataException;
 import ru.tinkoff.edu.service.LinkChatService;
 
-@Service
 @AllArgsConstructor
 public class JooqLinkChatService implements LinkChatService<LinkChat> {
     private DSLContext context;
