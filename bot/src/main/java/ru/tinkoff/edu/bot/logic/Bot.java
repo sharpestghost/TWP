@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import ru.tinkoff.edu.bot.commands.CommandInfo;
 import ru.tinkoff.edu.bot.commands.InputCommandsHandler;
+import ru.tinkoff.edu.bot.metrics.MetricsInspector;
 
 public class Bot {
     public static TelegramBot telegramBot;
@@ -41,6 +42,8 @@ public class Bot {
 
     public SendMessage processUpdate(Update update) {
         long id = update.message().chat().id();
+        System.out.println(":)");
+        MetricsInspector.incrementCounter();
         for (CommandInfo command : supportedCommands) {
             if (command.supports(update)) {
                 inputHandler.addLastAction(id, command);
@@ -51,6 +54,7 @@ public class Bot {
         if (lastCommand != null) {
             return lastCommand.handle(update);
         }
+
         return new SendMessage(update.message().chat().id(), INVALID_COMMAND);
     }
 
